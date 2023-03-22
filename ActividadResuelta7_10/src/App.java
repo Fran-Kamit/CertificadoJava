@@ -1,3 +1,10 @@
+import maquinaria.Locomotora;
+import maquinaria.Tren;
+import maquinaria.Vagon;
+import personal.JefeEstacion;
+import personal.Maquinista;
+import personal.Mecanico;
+
 public class App {
     public static void main(String[] args) throws Exception {
         Maquinista maq1, maq2;
