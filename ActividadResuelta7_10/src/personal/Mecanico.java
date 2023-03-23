@@ -15,4 +15,8 @@ public class Mecanico {
         this.telefono = telefono;
         this.especialidad = Especialidad.valueOf(especialidad);
     }
+
+    public void mostrarDatosMecanico() {
+        System.out.println("Nombre: " + nombre + ", Teléfono: " + telefono + ", Especialidad: " + especialidad);
+    }
 }

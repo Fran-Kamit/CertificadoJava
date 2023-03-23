@@ -12,4 +12,8 @@ public class Maquinista {
         this.sueldo = sueldo;
         this.rango = rango;
     }
+
+    public void mostrarDatosMaquinista() {
+        System.out.print("Nombre: " + nombre + ", DNI: " + dni + ",\n Sueldo: " + sueldo + " euros, Rango: " + rango);
+    }
 }
