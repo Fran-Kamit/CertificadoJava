@@ -1,6 +1,6 @@
 public class Calendario {
     private int dia, compDia, mes, compMes, anyo, compAnyo;
-    boolean comprobacion;
+    private boolean comprobacion;
 
     public Calendario(int dia, int mes, int anyo) {
         this.dia = dia;
@@ -8,12 +8,11 @@ public class Calendario {
         this.anyo = anyo;
     }
 
-    //// * Caso 1*////
+    ////* Caso 1*////
     public int incrementarDia() {
         this.dia++;
         /* Comprobación mes de 31 días */
-        if (this.dia == 32 && (this.mes == 1 || this.mes == 3 || this.mes == 5 || this.mes == 7 || this.mes == 8
-                || this.mes == 10 || this.mes == 12)) {
+        if (this.dia == 32 && (this.mes == 1 || this.mes == 3 || this.mes == 5 || this.mes == 7 || this.mes == 8 || this.mes == 10 || this.mes == 12)) {
             this.dia = 1;
             this.mes++;
             if (this.mes == 13) {
@@ -64,7 +63,7 @@ public class Calendario {
         return this.dia;
     }
 
-    //// * Caso 2*////
+    ////* Caso 2*////
     public int incrementarMes() {
         this.mes++;
         if (this.mes == 13) {
@@ -77,7 +76,7 @@ public class Calendario {
         return this.mes;
     }
 
-    //// * Caso 3*////
+    ////* Caso 3*////
     public int incrementarAnyo(int increAnyo) {
         for (int i = 0; i < increAnyo; i++) {
             if (this.anyo == 0) {
@@ -88,7 +87,7 @@ public class Calendario {
         return this.anyo;
     }
 
-    //// * Comprobación del caso 4*////
+    ////* Comprobación del caso 4*////
     public boolean iguales(int compdia, int compmes, int companyo) {
         this.compDia = compdia;
         this.compMes = compmes;
@@ -107,6 +106,7 @@ public class Calendario {
     }
     /////////////////////////////////
 
+    ////* Caso 5*////
     public void mostrar() {
         System.out.println(this.dia + "/" + this.mes + "/" + this.anyo);
     }
