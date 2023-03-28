@@ -1,6 +1,9 @@
 public class Calendario {
-    private int dia, compDia, mes, compMes, anyo, compAnyo;
+    private int dia, mes, anyo, compDia, compMes, compAnyo;
     private boolean comprobacion;
+
+    public Calendario(){
+    }
 
     public Calendario(int dia, int mes, int anyo) {
         this.dia = dia;
@@ -36,7 +39,7 @@ public class Calendario {
             }
         }
         /* Comprobación mes febrero no bisiesto */
-        if (this.dia >= 29 && this.mes == 2 && this.anyo % 4 != 0) {
+        if (this.dia == 29 && this.mes == 2 && this.anyo % 4 != 0) {
             this.dia = 1;
             this.mes++;
             if (this.mes == 13) {
@@ -48,7 +51,7 @@ public class Calendario {
             }
         }
         /* Comprobar mes febrero bisiesto */
-        if (this.dia >= 30 && this.mes == 2 && this.anyo % 4 == 0) {
+        if (this.dia == 30 && this.mes == 2 && this.anyo % 4 == 0) {
             this.dia = 1;
             this.mes++;
             if (this.mes == 13) {
@@ -59,7 +62,6 @@ public class Calendario {
                 this.anyo++;
             }
         }
-
         return this.dia;
     }
 
@@ -110,5 +112,4 @@ public class Calendario {
     public void mostrar() {
         System.out.println(this.dia + "/" + this.mes + "/" + this.anyo);
     }
-
 }
