@@ -9,7 +9,7 @@ public class App {
         Hora r = new Hora(11, 30);
         System.out.println(r);
         for (int i = 1; i < 61; i++) {
-            r.incrementarMinuto();
+            r.incrementar();
         }
         System.out.println(r);
 

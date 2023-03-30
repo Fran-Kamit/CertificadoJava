@@ -1,5 +1,6 @@
 public class Hora {
     protected int hora, minutos;
+    protected String hora1, minutos1;
     
     Hora (int hora, int minutos) {
         this.hora = 0;
@@ -30,6 +31,9 @@ public class Hora {
             this.hora = hora;
             correcto = true;
         }
+        if (hora < 10) {
+            hora1 = "0" + hora;
+        }
         return correcto;
     }
 
@@ -39,13 +43,29 @@ public class Hora {
             this.minutos = minutos;
             correcto = true;
         }
+        if (minutos < 10) {
+            minutos1 = "0" + minutos;
+        }
         return correcto;
     }
 
     @Override
     public String toString() {
-        String result;
-        result = hora + ":" + minutos;
+        String result = null;
+
+        if (hora < 10 && minutos < 10) {
+            result = hora1 + ":" + minutos1;
+        } 
+        else if (hora < 10) {
+            result = hora1 + ":" + minutos;
+        } 
+        else if (minutos < 10) {
+            result = hora + ":" + minutos1;
+        }
+        else {
+            result = hora + ":" + minutos;
+        }
+        
         return result;
     }
 }

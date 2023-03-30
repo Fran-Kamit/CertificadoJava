@@ -1,5 +1,6 @@
 public class HoraExacta extends Hora {
     protected int segundos;
+    protected String segundos1;
 
     public HoraExacta(int hora, int minutos, int segundos) {
         super(hora, minutos);
@@ -16,6 +17,9 @@ public class HoraExacta extends Hora {
             this.segundos = segundos;
             correcto = true;
         }
+        if(segundos < 10) {
+            segundos1 = "0" + segundos;
+        }
         return correcto;
     }
     
@@ -31,7 +35,12 @@ public class HoraExacta extends Hora {
     @Override
     public String toString() {
         String result = super.toString();
-        result += ":" + segundos;
+        if(segundos < 10) {
+            result += ":" + segundos1;
+        } else {
+            result += ":" + segundos;
+        }
+        
         return result;
     }
 }
