@@ -1,10 +1,9 @@
 import java.util.Scanner;
-
 public class App {
     public static void main(String[] args) throws Exception {
         Integer n;
         Scanner sc = new Scanner(System.in);
-
+        
         Lista x = new Lista();
         
         System.out.print("Introducir número (negativo para salir): ");
@@ -23,6 +22,6 @@ public class App {
         }
         System.out.println("");
 
-        sc.close();
+        sc.close(); 
     }
 }
