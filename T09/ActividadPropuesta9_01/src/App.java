@@ -16,6 +16,10 @@ public class App {
         }
         n = x.desapilar();
 
+        if(n != null){
+            System.out.print("\nLista desapilada: ");
+        }
+
         while (n != null){
             System.out.print(n + " ");
             n = x.desapilar();
