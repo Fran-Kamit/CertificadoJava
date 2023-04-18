@@ -6,7 +6,7 @@ public class App {
         String texto = "";
         FileReader in = null;
         try {
-            in = new FileReader("C:\\Users\\JAVA\\Desktop\\ActividadPropuesta10_01");
+            in = new FileReader("C:\\Users\\JAVA\\Desktop\\ActividadPropuesta10_01\\App.java");
             int c = in.read();
             while (c != -1) {
                 texto = texto + (char) c;
