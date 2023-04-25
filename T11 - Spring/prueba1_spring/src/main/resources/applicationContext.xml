@@ -21,7 +21,6 @@
     </bean>
 
     <!-- 6 -->
-    <bean id="miEmpleadoRaso" class="com.spring.prueba1_spring.EmpleadoRaso">
     <constructor-arg ref="miDocumento"></constructor-arg>
     <!-- 7.C -->
     <property name="emailDepartamental" value="empleados@pruebas.es"></property>
