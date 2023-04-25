@@ -5,4 +5,5 @@ public interface Empleados {
     public String getDocumento();
     public String getEmailDepartamental();
     public String getEmpresa();
+    
 }

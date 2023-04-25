@@ -2,6 +2,9 @@ package com.spring.prueba1_spring;
 
 public class EmpleadoRaso implements Empleados {
 
+    public EmpleadoRaso(){
+    }
+
     @Override
     public String getResponsabilidades() {
         return "responsabilidades de empleado.\n";
