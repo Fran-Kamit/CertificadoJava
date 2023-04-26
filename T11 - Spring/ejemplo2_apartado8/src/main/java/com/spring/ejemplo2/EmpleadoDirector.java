@@ -1,7 +1,8 @@
 package com.spring.ejemplo2;
+
 import org.springframework.stereotype.Component;
 
-@Component("Director")
+@Component
 public class EmpleadoDirector implements Empleados {
     public EmpleadoDirector(){
     }
