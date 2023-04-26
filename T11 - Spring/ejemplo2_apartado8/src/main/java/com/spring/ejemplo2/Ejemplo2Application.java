@@ -1,6 +1,3 @@
-//1, ¿Qué puedo hacer para solucionarlo?
-/**/
-
 package com.spring.ejemplo2;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
