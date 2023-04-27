@@ -1,15 +1,13 @@
 package com.spring.ejemplo2;
 
+//import javax.annotation.PostConstruct;
+//import javax.annotation.PreDestroy;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import jakarta.annotation.PostConstruct;
-import jakarta.annotation.PreDestroy;
-
 @Component
-@Scope("singleton")
 public class EmpleadoDirector implements Empleados {
 
     private CrearDocumentos documentoDirector;
@@ -29,7 +27,7 @@ public class EmpleadoDirector implements Empleados {
         return this.documentoDirector.getDocumento();
     }
 
-    @PostConstruct
+   /* @PostConstruct
     public void metodoPostConstruct() {
         System.out.println("\nEjecutando el método PostConstruct. Ejecuta tareas justo cuando se construye el bean, antes de que el bean esté disponible. Por ejemplo para activar servicios antes de que el bean esté listo.");
     }
@@ -37,5 +35,5 @@ public class EmpleadoDirector implements Empleados {
     @PreDestroy
     public void metodoPreDestroy() {
         System.out.println("\nEjecutando el método PreDestroy. Ejecuta tareas después de que el bean haya sido utilizado y destruido. Por ejemplo para liberar recursos, cerrar conexiones, etc.");
-    }
+    }*/
 }
