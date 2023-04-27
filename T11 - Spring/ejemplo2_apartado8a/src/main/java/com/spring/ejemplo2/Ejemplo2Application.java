@@ -17,6 +17,5 @@ public class Ejemplo2Application {
         System.out.println(Maria.getResponsabilidades());
 
 		contexto.close();
-		System.out.println("");
 	}
 }
