@@ -44,6 +44,7 @@ public class UsuariosServicios {
     // Actualizar un usuario existente
     public Usuarios update(UUID uuid, Usuarios usuarDetalles) {
         Usuarios usuario = findById(uuid);
+        
         usuario.setUsuarNumSS(usuarDetalles.getUsuarNumSS());
         usuario.setUsuarDni(usuarDetalles.getUsuarDni());
         usuario.setUsuarNombre(usuarDetalles.getUsuarNombre());

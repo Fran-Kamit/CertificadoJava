@@ -19,6 +19,7 @@ import javax.persistence.Table;
 
 public class Medicos implements Serializable{
 
+    //ID clave principal que se recoge del ID de la tabla usuarios
     @Id
     @Column(name = "codigo_identificacion")
     private UUID codigoIdentificacion;
@@ -27,6 +28,7 @@ public class Medicos implements Serializable{
     @OneToOne
     @JoinColumn(name = "codigo_identificacion")
     private Usuarios usuarios;
+    ////////////////
 
     @Column(name = "numeroColegiado")
     private int medicNumeroColegiado;

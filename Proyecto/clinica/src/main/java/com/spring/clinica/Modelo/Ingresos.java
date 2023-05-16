@@ -9,7 +9,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.stereotype.Component;
+import org.springframework.core.convert.converter.Converter;
 
 
 @Entity
@@ -19,7 +24,7 @@ public class Ingresos {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "numeroIngreso")
-    private Long idnumeroIngreso;
+    private Long idNumeroIngreso;
 
     @ManyToOne
     @JoinColumn(name = "usuarios_codigo_identificacion", referencedColumnName = "codigo_identificacion")
@@ -62,10 +67,10 @@ public class Ingresos {
     public Ingresos(){
     }
 
-    public Ingresos(Long idnumeroIngreso, Usuarios usuarios, Medicos medicos, LocalDate fechaIngreso,
+    public Ingresos(Long idNumeroIngreso, Usuarios usuarios, Medicos medicos, LocalDate fechaIngreso,
             LocalDate fechaAlta, int numeroPlanta, int numeroHabitacion, int numeroCama, String alergias,
             String observaciones, double coste, String diagnostico) {
-        this.idnumeroIngreso = idnumeroIngreso;
+        this.idNumeroIngreso = idNumeroIngreso;
         this.usuarios = usuarios;
         this.medicos = medicos;
         this.fechaIngreso = fechaIngreso;
@@ -79,13 +84,25 @@ public class Ingresos {
         this.diagnostico = diagnostico;
     }
 
-    //Getters y setters
-    public Long getIdnumeroIngreso() {
-        return idnumeroIngreso;
+    @Component
+    public class StringToLocalDateTimeConverter implements Converter<String, LocalDateTime> {
+    
+        private static final String DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm";
+    
+        @Override
+        public LocalDateTime convert(String source) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT);
+            return LocalDateTime.parse(source, formatter);
+        }
     }
 
-    public void setIdnumeroIngreso(Long idnumeroIngreso) {
-        this.idnumeroIngreso = idnumeroIngreso;
+    //Getters y setters
+    public Long getIdNumeroIngreso() {
+        return idNumeroIngreso;
+    }
+
+    public void setIdNumeroIngreso(Long idNumeroIngreso) {
+        this.idNumeroIngreso = idNumeroIngreso;
     }
 
     public Usuarios getUsuarios() {
@@ -179,7 +196,7 @@ public class Ingresos {
     //toString
     @Override
     public String toString() {
-        return "Ingresos [idnumeroIngreso=" + idnumeroIngreso + ", usuarios=" + usuarios + ", medicos=" + medicos
+        return "Ingresos [idnumeroIngreso=" + idNumeroIngreso + ", usuarios=" + usuarios + ", medicos=" + medicos
                 + ", fechaIngreso=" + fechaIngreso + ", fechaAlta=" + fechaAlta + ", numeroPlanta=" + numeroPlanta
                 + ", numeroHabitacion=" + numeroHabitacion + ", numeroCama=" + numeroCama + ", alergias=" + alergias
                 + ", observaciones=" + observaciones + ", coste=" + coste + ", diagnostico=" + diagnostico + "]";

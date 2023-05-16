@@ -41,14 +41,15 @@ public class MedicosServicios {
         }
     }
 
-    // Guardar un usuario
+    // Guardar un médico
     public Medicos save(Medicos medico) {
         return medicosRepositorio.save(medico);
     }
 
-    // Actualizar un usuario existente
+    // Actualizar un médico existente
     public Medicos update(UUID uuid, Medicos medicDetalles) {
         Medicos medico = findBycodigoIdentificacion(uuid);
+        
         medico.setUsuarios(medicDetalles.getUsuarios());
         medico.setMedicNumeroColegiado(medicDetalles.getMedicNumeroColegiado());
         medico.setMedicEspecialidad(medicDetalles.getMedicEspecialidad());
