@@ -82,6 +82,9 @@ public class Usuarios {
     @Column(name = "consentimientoDatos")
     private boolean usuarConsentimientoDatos;
 
+    @Column(name = "creado_dia")
+    private LocalDateTime usuarCreado;
+
     @OneToMany(mappedBy = "usuarios", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Ingresos> ingresos = new ArrayList<>();
 
@@ -94,7 +97,8 @@ public class Usuarios {
 
     public Usuarios(UUID usuarCodigoIdentificacion, long usuarNumSS, String usuarDni, String usuarNonmbre, String usuarApellidos,
     String usuarGenero, LocalDate usuarFechaNacimiento, String usuarDomicilio, String usuarPoblacion, String usuarProvincia,
-    String usuarPais, int usuarCodigoPostal, int usuarTelefono, @Email String usuarEmail, boolean usuarConsentimientoDatos) {
+    String usuarPais, int usuarCodigoPostal, int usuarTelefono, @Email String usuarEmail, boolean usuarConsentimientoDatos,
+    LocalDateTime usuarCreado) {
     this.usuarCodigoIdentificacion = usuarCodigoIdentificacion;
     this.usuarNumSS = usuarNumSS;
     this.usuarDni = usuarDni;
@@ -110,6 +114,7 @@ public class Usuarios {
     this.usuarTelefono = usuarTelefono;
     this.usuarEmail = usuarEmail;
     this.usuarConsentimientoDatos = usuarConsentimientoDatos;
+    this.usuarCreado = usuarCreado;
 }
 
     //Métodos
@@ -128,6 +133,7 @@ public class Usuarios {
     
 
     // Getters y setters
+
     public UUID getUsuarCodigoIdentificacion() {
         return usuarCodigoIdentificacion;
     }
@@ -156,8 +162,8 @@ public class Usuarios {
         return usuarNombre;
     }
 
-    public void setUsuarNombre(String usuarNonmbre) {
-        this.usuarNombre = usuarNonmbre;
+    public void setUsuarNombre(String usuarNombre) {
+        this.usuarNombre = usuarNombre;
     }
 
     public String getUsuarApellidos() {
@@ -169,13 +175,13 @@ public class Usuarios {
     }
 
     public String getUsuarGenero() {
-        return usuarEmail;
+        return usuarGenero;
     }
 
     public void setUsuarGenero(String usuarGenero) {
         this.usuarGenero = usuarGenero;
     }
-    
+
     public LocalDate getUsuarFechaNacimiento() {
         return usuarFechaNacimiento;
     }
@@ -248,15 +254,40 @@ public class Usuarios {
         this.usuarConsentimientoDatos = usuarConsentimientoDatos;
     }
 
-    // toString
+    public LocalDateTime getUsuarCreado() {
+        return usuarCreado;
+    }
+
+    public void setUsuarCreado(LocalDateTime usuarCreado) {
+        this.usuarCreado = usuarCreado;
+    }
+
+    public List<Ingresos> getIngresos() {
+        return ingresos;
+    }
+
+    public void setIngresos(List<Ingresos> ingresos) {
+        this.ingresos = ingresos;
+    }
+
+    public Medicos getMedicos() {
+        return medicos;
+    }
+
+    public void setMedicos(Medicos medicos) {
+        this.medicos = medicos;
+    }
+
+    //toString
     @Override
     public String toString() {
         return "Usuarios [usuarCodigoIdentificacion=" + usuarCodigoIdentificacion + ", usuarNumSS=" + usuarNumSS
-                + ", usuarDni=" + usuarDni + ", usuarNonmbre=" + usuarNombre + ", usuarApellidos=" + usuarApellidos
+                + ", usuarDni=" + usuarDni + ", usuarNombre=" + usuarNombre + ", usuarApellidos=" + usuarApellidos
                 + ", usuarGenero=" + usuarGenero + ", usuarFechaNacimiento=" + usuarFechaNacimiento
                 + ", usuarDomicilio=" + usuarDomicilio + ", usuarPoblacion=" + usuarPoblacion + ", usuarProvincia="
                 + usuarProvincia + ", usuarPais=" + usuarPais + ", usuarCodigoPostal=" + usuarCodigoPostal
                 + ", usuarTelefono=" + usuarTelefono + ", usuarEmail=" + usuarEmail + ", usuarConsentimientoDatos="
-                + usuarConsentimientoDatos + ", ingresos=" + ingresos + ", medicos=" + medicos + "]";
-    } 
+                + usuarConsentimientoDatos + ", usuarCreado=" + usuarCreado + ", ingresos=" + ingresos + ", medicos="
+                + medicos + "]";
+    }
 }
