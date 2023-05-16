@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import com.spring.clinica.Modelo.Ingresos;
 import com.spring.clinica.Modelo.Medicos;
 import com.spring.clinica.Modelo.Usuarios;
-import com.spring.clinica.Repositorios.IngresosRepositorio;
-import com.spring.clinica.Repositorios.UsuariosRepositorio;
 import com.spring.clinica.Servicios.IngresosServicios;
 import com.spring.clinica.Servicios.MedicosServicios;
 import com.spring.clinica.Servicios.UsuariosServicios;
@@ -21,7 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.NoSuchElementException;
 import java.util.UUID;
 
 import javax.validation.Valid;
@@ -32,43 +30,36 @@ public class IngresosControlador {
 
     @Autowired
     private IngresosServicios ingresosServicios;
-
-    @Autowired
-    private IngresosRepositorio ingresosRepositorio;
     
     @Autowired
     private UsuariosServicios usuariosServicios;
 
     @Autowired
-    private UsuariosRepositorio usuariosRepositorio;
-
-    @Autowired
     private MedicosServicios medicosServicios;
 
-    @PostMapping("/ingresos")
+    @PostMapping("/ingreso")
     public String createIngreso(@ModelAttribute Ingresos ingreso) {
         ingresosServicios.save(ingreso);
         return "redirect:/ingresos/listado-ingresos";
     }
 
     //añadir ingreso
-    @PostMapping("/ingresos/ingreso")
-    public String createIngreso(@ModelAttribute Ingresos ingresos, BindingResult result) {
+    @PostMapping("/ingresos/crear")
+    public String createIngreso(@Valid @ModelAttribute Ingresos ingresos, BindingResult result) {
         if (result.hasErrors()) {
             return "error";
         }
         
         UUID usuarioId = ingresos.getUsuarios().getUsuarCodigoIdentificacion();
-        Optional<Usuarios> usuarioOpcional = usuariosRepositorio.findById(usuarioId);
+        Usuarios usuario = usuariosServicios.findById(usuarioId);
         
-        if (!usuarioOpcional.isPresent()) {
+        if (usuario == null) {
             return "error";
         }
-        
-        Usuarios usuario = usuarioOpcional.get();
+    
         ingresos.setUsuarios(usuario);
-        ingresosRepositorio.save(ingresos);
-        return "success";
+        ingresosServicios.save(ingresos);
+        return "redirect:/ingresos/listado-ingresos";
     }
 
     //cargar editar ingreso
@@ -84,14 +75,14 @@ public class IngresosControlador {
             model.addAttribute("usuarios", usuarios);
 
             return "vista/ingresos/editar-ingreso";
-        } catch (RuntimeException e) {
+        } catch (NoSuchElementException e) {
             return "error"; // Mostrar una página de error personalizada si la reparación no se encuentra
         }
     }
 
     //editar ingreso
     @PostMapping("/actualizar-post")
-    public String updateReparacion(@ModelAttribute("ingreso") Ingresos ingresos, BindingResult result, Model model) {
+    public String updateIngreso(@Valid @ModelAttribute("ingreso") Ingresos ingresos, BindingResult result, Model model) {
         if (result.hasErrors()) {
             // Manejar errores de validación aquí
             return "vista/ingresos/editar-ingreso";
@@ -120,7 +111,7 @@ public class IngresosControlador {
         return "/vista/ingresos/listado-ingresos";
     }
 
-    @GetMapping("/repair-add")
+    @GetMapping("/ingresos/agregar")
     public String addIngreso(Model model) {
         Ingresos ingreso = new Ingresos();
         List<Medicos> medicos = medicosServicios.findAll();
@@ -130,18 +121,18 @@ public class IngresosControlador {
         model.addAttribute("medicos", medicos);
         model.addAttribute("usuarios", usuarios);
 
-        return "vista/ingreso/add-ingreso";
+        return "vista/ingresos/agregar";
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Ingresos> updateReparacion(@PathVariable Long id, @Valid @RequestBody Ingresos ingresos) {
+    public ResponseEntity<Ingresos> updateIngreso(@PathVariable Long id, @Valid @RequestBody Ingresos ingresos) {
         Ingresos actualizarIngresos = ingresosServicios.update(id, ingresos);
         return new ResponseEntity<>(actualizarIngresos, HttpStatus.OK);
     }
 
-    @PostMapping("/eliminar/{id}")
-    public String eliminarReparacion(@PathVariable Long id) {
+    @DeleteMapping("/{id}")
+    public String eliminarIngreso(@PathVariable Long id) {
         ingresosServicios.deleteById(id);
-        return "redirect:/ingreso/listado-ingreso";
+        return "redirect:/ingresos/listado-ingresos";
     }
 }
