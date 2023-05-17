@@ -10,6 +10,6 @@ import com.spring.clinica.Modelo.Medicos;
 
 public interface MedicosRepositorio extends JpaRepository<Medicos, UUID>{
     List<Medicos> findByusuarios(String usuarios);
-    Optional<Medicos> findBycodigoIdentificacion(UUID codigoIdentificacion);
-    Optional<Medicos> findBymedicNumeroColegiado(int medicNumeroColegiado);
+    Optional<Medicos> findByCodigoIdentificacion(UUID codigoIdentificacion);
+    Optional<Medicos> findByMedicNumeroColegiado(int medicNumeroColegiado);
 }

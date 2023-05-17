@@ -5,10 +5,10 @@ import com.spring.clinica.Servicios.UsuariosServicios;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -32,13 +32,25 @@ public class UsuariosControlador {
         return dateTime.format(formatter);
     }
 
-    // Crear un nuevo usuario (POST)
+ /*/   // Crear un nuevo usuario (POST)
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Usuarios> createUser(@ModelAttribute Usuarios usuario) {
         LocalDateTime currentDateTime = LocalDateTime.now();
         usuario.setUsuarCreado(currentDateTime);
         Usuarios newUser = usuariosServicios.save(usuario);
         return new ResponseEntity<>(newUser, HttpStatus.CREATED);
+    }*/
+    
+    //añadir usuarios
+    @PostMapping("/usuarios/crear")
+    public String createUser(@ModelAttribute Usuarios usuario, BindingResult result) {
+        if (result.hasErrors()) {
+            return "error";
+        }
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        usuario.setUsuarCreado(currentDateTime);
+        usuariosServicios.save(usuario);
+        return "redirect:/Usuarios/crear-usuario";
     }
 
     // Actualizar un user existente (PUT)
@@ -62,13 +74,13 @@ public class UsuariosControlador {
         return new ResponseEntity<>(usuario, HttpStatus.OK);
     }
 
-    //Obtener user para editar en html
+    //Obtener usuario para editar en html
     @GetMapping("/detalle/{id}")
     public String verUserDetalle(@PathVariable UUID id, Model model) {
         Usuarios usuario = usuariosServicios.findById(id);
         model.addAttribute("usuario", usuario);
         model.addAttribute("creado_dia", formatLocalDateTime(usuario.getUsuarCreado()));
-        return "/vista/usuarios/detalle-usuario";
+        return "/views/Usuarios/detalle-usuario";
     }
 
     //Eliminar un User por ID (DELETE)
@@ -89,6 +101,6 @@ public class UsuariosControlador {
         List<Usuarios> usuarios = usuariosServicios.findAll();
         model.addAttribute("usuarios", usuarios);
         model.addAttribute("usuario", new Usuarios());
-        return "/vista/usuarios/listado-usuarios";
+        return "/views/Usuarios/listado-usuarios";
     }  
 }

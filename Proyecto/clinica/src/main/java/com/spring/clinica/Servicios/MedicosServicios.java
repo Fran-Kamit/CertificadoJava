@@ -22,8 +22,8 @@ public class MedicosServicios {
     }
 
     // Encontrar médicos por ID
-    public Medicos findBycodigoIdentificacion(UUID id) {
-        Optional<Medicos> medico = medicosRepositorio.findBycodigoIdentificacion(id);
+    public Medicos findByCodigoIdentificacion(UUID id) {
+        Optional<Medicos> medico = medicosRepositorio.findByCodigoIdentificacion(id);
         if (medico.isPresent()) {
             return medico.get();
         } else {
@@ -32,8 +32,8 @@ public class MedicosServicios {
     }
 
     // Encontrar un médico por numeroColegiado
-    public Medicos findByName(int medicNumeroColegiado) {
-        Optional<Medicos> medico = medicosRepositorio.findBymedicNumeroColegiado(medicNumeroColegiado);
+    public Medicos findBymedicNumeroColegiado(int medicNumeroColegiado) {
+        Optional<Medicos> medico = medicosRepositorio.findByMedicNumeroColegiado(medicNumeroColegiado);
         if (medico.isPresent()) {
             return medico.get();
         } else {
@@ -48,7 +48,7 @@ public class MedicosServicios {
 
     // Actualizar un médico existente
     public Medicos update(UUID uuid, Medicos medicDetalles) {
-        Medicos medico = findBycodigoIdentificacion(uuid);
+        Medicos medico = findByCodigoIdentificacion(uuid);
         
         medico.setUsuarios(medicDetalles.getUsuarios());
         medico.setMedicNumeroColegiado(medicDetalles.getMedicNumeroColegiado());

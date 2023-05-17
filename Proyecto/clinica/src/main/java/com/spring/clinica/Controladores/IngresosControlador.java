@@ -74,7 +74,7 @@ public class IngresosControlador {
             model.addAttribute("medico", medicos);
             model.addAttribute("usuarios", usuarios);
 
-            return "vista/ingresos/editar-ingreso";
+            return "views/Ingresos/editar-ingreso";
         } catch (NoSuchElementException e) {
             return "error"; // Mostrar una página de error personalizada si la reparación no se encuentra
         }
@@ -85,7 +85,7 @@ public class IngresosControlador {
     public String updateIngreso(@Valid @ModelAttribute("ingreso") Ingresos ingresos, BindingResult result, Model model) {
         if (result.hasErrors()) {
             // Manejar errores de validación aquí
-            return "vista/ingresos/editar-ingreso";
+            return "views/Ingresos/editar-ingreso";
         }
 
         ingresosServicios.save(ingresos);
@@ -108,7 +108,7 @@ public class IngresosControlador {
         model.addAttribute("ingresos", ingresos);
         model.addAttribute("usuarios", usuarios);
         model.addAttribute("medicos", medicos);
-        return "/vista/ingresos/listado-ingresos";
+        return "views/Ingresos/listado-ingresos";
     }
 
     @GetMapping("/ingresos/agregar")
@@ -121,7 +121,7 @@ public class IngresosControlador {
         model.addAttribute("medicos", medicos);
         model.addAttribute("usuarios", usuarios);
 
-        return "vista/ingresos/agregar";
+        return "views/Ingresos/agregar";
     }
 
     @PutMapping("/{id}")
@@ -130,7 +130,7 @@ public class IngresosControlador {
         return new ResponseEntity<>(actualizarIngresos, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public String eliminarIngreso(@PathVariable Long id) {
         ingresosServicios.deleteById(id);
         return "redirect:/ingresos/listado-ingresos";
