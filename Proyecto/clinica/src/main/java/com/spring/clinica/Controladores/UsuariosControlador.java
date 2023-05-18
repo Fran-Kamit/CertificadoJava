@@ -32,6 +32,28 @@ public class UsuariosControlador {
         return dateTime.format(formatter);
     }
 
+    // Obtener todos los Usuarios (GET)
+    @GetMapping
+    public ResponseEntity<List<Usuarios>> getAllUsuarios() {
+        List<Usuarios> usuarios = usuariosServicios.findAll();
+        return new ResponseEntity<>(usuarios, HttpStatus.OK);
+    }
+
+    // Obtener un user por ID (GET)
+    @GetMapping("/{id}")
+    public ResponseEntity<Usuarios> getUsuarioByusuarCodigoIdentificacion(@PathVariable UUID id) {
+        Usuarios usuario = usuariosServicios.findByusuarCodigoIdentificacion(id);
+        return new ResponseEntity<>(usuario, HttpStatus.OK);
+    }
+
+    //Obtener usuario para editar en html
+    @GetMapping("/detalle/{id}")
+    public String verUsuarioDetalle(@PathVariable UUID id, Model model) {
+        Usuarios usuario = usuariosServicios.findByusuarCodigoIdentificacion(id);
+        model.addAttribute("usuario", usuario);
+        return "/views/Usuarios/detalle-usuario";
+    }
+
  /*/   // Crear un nuevo usuario (POST)
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Usuarios> createUser(@ModelAttribute Usuarios usuario) {
@@ -58,29 +80,6 @@ public class UsuariosControlador {
     public ResponseEntity<Usuarios> updateUser(@PathVariable UUID id, @RequestBody Usuarios usuario) {
         Usuarios actualizarUsuario = usuariosServicios.update(id, usuario);
         return new ResponseEntity<>(actualizarUsuario, HttpStatus.OK);
-    }
-
-    // Obtener todos los Usuarios (GET)
-    @GetMapping
-    public ResponseEntity<List<Usuarios>> getAllUsers() {
-        List<Usuarios> usuarios = usuariosServicios.findAll();
-        return new ResponseEntity<>(usuarios, HttpStatus.OK);
-    }
-
-    // Obtener un user por ID (GET)
-    @GetMapping("/{id}")
-    public ResponseEntity<Usuarios> getUsuarioById(@PathVariable UUID id) {
-        Usuarios usuario = usuariosServicios.findByusuarCodigoIdentificacion(id);
-        return new ResponseEntity<>(usuario, HttpStatus.OK);
-    }
-
-    //Obtener usuario para editar en html
-    @GetMapping("/detalle/{id}")
-    public String verUserDetalle(@PathVariable UUID id, Model model) {
-        Usuarios usuario = usuariosServicios.findByusuarCodigoIdentificacion(id);
-        model.addAttribute("usuario", usuario);
-        model.addAttribute("creado_dia", formatLocalDateTime(usuario.getUsuarCreado()));
-        return "/views/Usuarios/detalle-usuario";
     }
 
     //Eliminar un User por ID (DELETE)

@@ -43,7 +43,7 @@ public class MedicosControlador {
 
     //Obtener médico para editar en html
     @GetMapping("/detalle/{id}")
-    public String verBicicletaDetalle(@PathVariable UUID id, Model model) {
+    public String verMedicoDetalle(@PathVariable UUID id, Model model) {
         Medicos medico = medicosServicios.findByCodigoIdentificacion(id);
         model.addAttribute("medico", medico);
         return "/views/Medicos/detalle-medico";
