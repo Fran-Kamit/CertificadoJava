@@ -27,9 +27,9 @@ public class MedicosControlador {
         return new ResponseEntity<>(medicos, HttpStatus.OK);
     }
 
-    // Obtener un médico por id (GET)
+    // Obtener un médico por ID (GET)
     @GetMapping("/{id}")
-    public ResponseEntity<Medicos> getMedicoById(@PathVariable UUID id) {
+    public ResponseEntity<Medicos> getMedicoByCodigoIdentificacion(@PathVariable UUID id) {
         Medicos medico = medicosServicios.findByCodigoIdentificacion(id);
         return new ResponseEntity<>(medico, HttpStatus.OK);
     }
@@ -76,8 +76,8 @@ public class MedicosControlador {
     }
 
     @GetMapping("/listado-medicos")
-    public String listarBicicletas(Model model) {
-        List<Medicos> medicos =medicosServicios.findAll();
+    public String listarMedicos(Model model) {
+        List<Medicos> medicos = medicosServicios.findAll();
         model.addAttribute("medicos", medicos);
         model.addAttribute("medicos", new Medicos()); // Añade esta línea
         return "/views/Medicos/listado-medicos";

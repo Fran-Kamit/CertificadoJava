@@ -22,8 +22,8 @@ public class UsuariosServicios {
     }
 
     // Encontrar un usuario por ID
-    public Usuarios findById(UUID id) {
-        Optional<Usuarios> usuario = usuarioRepositorio.findById(id);
+    public Usuarios findByusuarCodigoIdentificacion(UUID id) {
+        Optional<Usuarios> usuario = usuarioRepositorio.findByusuarCodigoIdentificacion(id);
         if (usuario.isPresent()) {
             return usuario.get();
         } else {
@@ -43,7 +43,7 @@ public class UsuariosServicios {
 
     // Actualizar un usuario existente
     public Usuarios update(UUID uuid, Usuarios usuarDetalles) {
-        Usuarios usuario = findById(uuid);
+        Usuarios usuario = findByusuarCodigoIdentificacion(uuid);
         
         usuario.setUsuarNumSS(usuarDetalles.getUsuarNumSS());
         usuario.setUsuarDni(usuarDetalles.getUsuarDni());
@@ -65,7 +65,7 @@ public class UsuariosServicios {
 
     // Eliminar usuario por ID
     public void delete(UUID uuid) {
-        Usuarios usuario = findById(uuid);
+        Usuarios usuario = findByusuarCodigoIdentificacion(uuid);
         usuarioRepositorio.delete(usuario);
     }
 }

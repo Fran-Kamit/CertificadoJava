@@ -63,21 +63,21 @@ public class UsuariosControlador {
     // Obtener todos los Usuarios (GET)
     @GetMapping
     public ResponseEntity<List<Usuarios>> getAllUsers() {
-        List<Usuarios> usuario = usuariosServicios.findAll();
-        return new ResponseEntity<>(usuario, HttpStatus.OK);
+        List<Usuarios> usuarios = usuariosServicios.findAll();
+        return new ResponseEntity<>(usuarios, HttpStatus.OK);
     }
 
     // Obtener un user por ID (GET)
     @GetMapping("/{id}")
-    public ResponseEntity<Usuarios> getUserById(@PathVariable UUID id) {
-        Usuarios usuario = usuariosServicios.findById(id);
+    public ResponseEntity<Usuarios> getUsuarioById(@PathVariable UUID id) {
+        Usuarios usuario = usuariosServicios.findByusuarCodigoIdentificacion(id);
         return new ResponseEntity<>(usuario, HttpStatus.OK);
     }
 
     //Obtener usuario para editar en html
     @GetMapping("/detalle/{id}")
     public String verUserDetalle(@PathVariable UUID id, Model model) {
-        Usuarios usuario = usuariosServicios.findById(id);
+        Usuarios usuario = usuariosServicios.findByusuarCodigoIdentificacion(id);
         model.addAttribute("usuario", usuario);
         model.addAttribute("creado_dia", formatLocalDateTime(usuario.getUsuarCreado()));
         return "/views/Usuarios/detalle-usuario";
@@ -100,7 +100,7 @@ public class UsuariosControlador {
     public String listarUsers(Model model) {
         List<Usuarios> usuarios = usuariosServicios.findAll();
         model.addAttribute("usuarios", usuarios);
-        model.addAttribute("usuario", new Usuarios());
+        model.addAttribute("usuarios", new Usuarios());
         return "/views/Usuarios/listado-usuarios";
     }  
 }

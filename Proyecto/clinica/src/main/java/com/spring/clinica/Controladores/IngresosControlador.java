@@ -51,7 +51,7 @@ public class IngresosControlador {
         }
         
         UUID usuarioId = ingresos.getUsuarios().getUsuarCodigoIdentificacion();
-        Usuarios usuario = usuariosServicios.findById(usuarioId);
+        Usuarios usuario = usuariosServicios.findByusuarCodigoIdentificacion(usuarioId);
         
         if (usuario == null) {
             return "error";

@@ -12,7 +12,7 @@
         <div class="container">
             <!-- Enlace y logotipo de la marca -->
             <a class="navbar-brand" href="#">
-                <img src="/imagenes/logo.png" alt="Logo" height="40">
+                <img src="/images/logo.png" alt="Logo" height="40">
             </a>
             <!-- Botón de alternancia de navegación para pantallas pequeñas -->
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,11 +30,11 @@
                         </a>
                     </li>
                     <!-- Elemento de navegación individual (Usuarios) -->
-                    <li class="nav-item" hidden>
+                 <!--   <li class="nav-item" hidden>
                         <a class="nav-link" th:href="@{/usuarios}">
                             <i class="bi bi-people-fill"></i> Usuarios
                         </a>
-                    </li>
+                    </li>-->
                     <!-- Elemento de navegación individual (Usuarios) -->
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/usuarios/listado-usuarios}">
@@ -52,13 +52,7 @@
                         <a class="nav-link" th:href="@{/ingresos/listado-ingresos}">
                             <i class="bi bi-steam"></i> Ingresos
                         </a>
-                    </li>
-                    <!-- Elemento de navegación Eventos 
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/events/listado-eventos}">
-                            <i class="bi bi-calendar-event"></i> Eventos
-                        </a>
-                    </li> -->                                     
+                    </li>                                    
                     <!-- Elemento de navegación individual (Contacto) -->
                     <li class="nav-item">
                         <a class="nav-link" href="#">
