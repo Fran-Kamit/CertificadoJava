@@ -8,7 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -23,6 +22,19 @@ public class UsuariosControlador {
     @Autowired
     private UsuariosServicios usuariosServicios;
 
+    @PostMapping("/crear")
+    public String crearUsuario(@ModelAttribute Usuarios usuario) { 
+        usuariosServicios.save(usuario);
+        return "redirect:/Usuarios/listado-usuario";
+    }
+    
+    @GetMapping("/crear-usuario")
+    public String showCreateUserForm(Model model) {
+        model.addAttribute("usuario", new Usuarios());
+        return "/views/Usuarios/crear-usuario";
+    }
+
+    
     //metodo dar formato fechas.
     public String formatLocalDateTime(LocalDateTime dateTime) {
         if (dateTime == null) {
@@ -64,16 +76,17 @@ public class UsuariosControlador {
     }*/
     
     //añadir usuarios
-    @PostMapping("/usuarios/crear")
-    public String createUser(@ModelAttribute Usuarios usuario, BindingResult result) {
+    /*@PostMapping("/usuarios/crear")
+    public String createUsuario(@ModelAttribute Usuarios usuario, BindingResult result) {
         if (result.hasErrors()) {
             return "error";
         }
-        LocalDateTime currentDateTime = LocalDateTime.now();
+         LocalDateTime currentDateTime = LocalDateTime.now();
         usuario.setUsuarCreado(currentDateTime);
         usuariosServicios.save(usuario);
         return "redirect:/Usuarios/crear-usuario";
-    }
+    }*/
+
 
     // Actualizar un user existente (PUT)
     @PutMapping("/{id}")

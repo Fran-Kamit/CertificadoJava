@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="fragments/header :: header">
+    </head>
+    <body>
+    <h1>Añadir usuario <span th:text="${nombre}"></span>.</h1>
+    <div th:replace="fragments/navbar :: navbar"></div>
+    
+    <form th:action="@{/usuarios/crear}" th:object="${usuario}" method="post">
+        <!-- Reemplaza 'campo' con los nombres de los campos en tu clase Usuarios -->
+      <!--  <label for="campo">Campo:</label>
+        <input type="text" th:field="*{campo}" id="campo" name="campo">-->
+    
+        <!-- Repite lo anterior para cada campo en tu clase Usuarios -->
+        <div class="container">
+            <br />
+            <input type="submit" value="Añadir Usuario" class="btn btn-primary"/>
+            <button type="button" class="btn btn-primary" onclick="location.href='/usuarios/listado-usuarios'">Volver a Usuarios</button>
+        </div>
+    </form>
+</body>
+</html>

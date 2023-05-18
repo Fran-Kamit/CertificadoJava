@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+  <head th:replace="fragments/header :: header">
+  </head>
+  <body>
+    <h1>Listado de Usuarios <span th:text="${nombre}"></span>.</h1>
+    <div th:replace="fragments/navbar :: navbar"></div>
+    <div class="container">
+      <a th:href="@{/usuarios/crear-usuario}" class="btn btn-primary">Añadir Usuario</a>
+      <button type="button" class="btn btn-primary my-3" onclick="location.href='/inicio'">Volver a Inicio<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 3.293l5.5 5.5a.5.5 0 0 1-.707.707L8 4.707 2.707 10.5a.5.5 0 1 1-.707-.707L8 3.293z"/><path fill-rule="evenodd" d="M7.5 10.5V14h1v-3.5a.5.5 0 0 1 1 0V14h1v-3.5a2 2 0 0 0-2-2h-1a2 2 0 0 0-2 2V14h1v-3.5a.5.5 0 0 1 1 0z"/></svg></button>
+    </div>
+  
+<!-- tabla de Usuarios-->
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead class="thead-dark">
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Apellidos</th>
+            <th>DNI</th>
+            <th>Número Seguridad Social</th>
+            <th>Género</th>
+            <th>Fecha nacimiento</th>
+            <th>Email</th>
+            <th>Teléfono</th>
+            <th>Domicilio</th>
+            <th>Población</th>
+            <th class="d-none d-md-table-cell">País</th>
+            <th class="d-none d-md-table-cell">Código postal</th>
+            <th>Consiente Datos</th>
+            <th class="d-none d-md-table-cell">Fecha consentimiento</th>            
+            <th>Acciones</th></tr></thead>
+        <tbody>
+          <tr th:each="user : ${users}">
+            <td th:text="${user.usuarCodigoIdentificacion}"></td>
+            <td th:text="${user.usuarNombre}"></td>
+            <td th:text="${user.usuarApellidos}"></td>
+            <td th:text="${user.usuarDni}"></td>
+            <td th:text="${user.usuarNumSS}"></td>
+            <td th:text="${user.usuarGenero}"></td>
+            <td th:text="${user.usuarFechaNacimiento}"></td>
+            <td th:text="${user.usuarEmail}"></td>
+            <td th:text="${user.usuarTelefono}"></td>
+            <td th:text="${user.usuarDomicilio}"></td>
+            <td th:text="${user.usuarPoblacion}"></td>
+            <td class="d-none d-md-table-cell" th:text="${user.usuarPais}"></td>
+            <td class="d-none d-md-table-cell" th:text="${user.usuarCodigoPostal}"></td>
+            <td th:text="${user.usuarConsentimientoDatos}"></td>
+            <td class="d-none d-md-table-cell" th:text="${user.usuarCreado}"></td>
+          <td><a th:href="@{/users/detalle/{id}(id=${user.id})}" class="btn btn-warning">Editar</a></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
