@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import com.spring.clinica.Modelo.Ingresos;
 import com.spring.clinica.Modelo.Medicos;
 import com.spring.clinica.Modelo.Usuarios;
+
 import com.spring.clinica.Servicios.IngresosServicios;
 import com.spring.clinica.Servicios.MedicosServicios;
 import com.spring.clinica.Servicios.UsuariosServicios;
@@ -24,7 +25,7 @@ import java.util.UUID;
 
 import javax.validation.Valid;
 
-@Controller //se utiliza para construir aplicaciones web y devuelve vistas.
+@Controller
 @RequestMapping("/ingresos")
 public class IngresosControlador {
 
