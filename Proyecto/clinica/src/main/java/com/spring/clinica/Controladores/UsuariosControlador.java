@@ -25,12 +25,15 @@ public class UsuariosControlador {
     @PostMapping("/crear")
     public String crearUsuario(@ModelAttribute Usuarios usuario) { 
         usuariosServicios.save(usuario);
-        return "redirect:/Usuarios/listado-usuario";
+        return "redirect:/usuarios/listado-usuarios";
     }
     
     @GetMapping("/crear-usuario")
     public String showCreateUserForm(Model model) {
-        model.addAttribute("usuario", new Usuarios());
+        Usuarios usuario = new Usuarios();
+        usuario.setUsuarCodigoIdentificacion(UUID.randomUUID()); // Generar un nuevo UUID
+        model.addAttribute("usuario", usuario);
+        /*model.addAttribute("usuario", new Usuarios());*/
         return "/views/Usuarios/crear-usuario";
     }
 
@@ -96,7 +99,7 @@ public class UsuariosControlador {
     }
 
     //Eliminar un User por ID (DELETE)
-    @DeleteMapping("/{id}")
+    @DeleteMapping("eliminar/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable UUID id) {
         usuariosServicios.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -109,10 +112,9 @@ public class UsuariosControlador {
 
     //Obtener listado de usuarios
     @GetMapping("/listado-usuarios")
-    public String listarUsers(Model model) {
+    public String obtenerUsuarios(Model model) {
         List<Usuarios> usuarios = usuariosServicios.findAll();
         model.addAttribute("usuarios", usuarios);
-        model.addAttribute("usuarios", new Usuarios());
         return "/views/Usuarios/listado-usuarios";
     }  
 }

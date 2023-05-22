@@ -32,23 +32,33 @@
             <th class="d-none d-md-table-cell">Fecha consentimiento</th>            
             <th>Acciones</th></tr></thead>
         <tbody>
-          <tr th:each="user : ${users}">
-            <td th:text="${user.usuarCodigoIdentificacion}"></td>
-            <td th:text="${user.usuarNombre}"></td>
-            <td th:text="${user.usuarApellidos}"></td>
-            <td th:text="${user.usuarDni}"></td>
-            <td th:text="${user.usuarNumSS}"></td>
-            <td th:text="${user.usuarGenero}"></td>
-            <td th:text="${user.usuarFechaNacimiento}"></td>
-            <td th:text="${user.usuarEmail}"></td>
-            <td th:text="${user.usuarTelefono}"></td>
-            <td th:text="${user.usuarDomicilio}"></td>
-            <td th:text="${user.usuarPoblacion}"></td>
-            <td class="d-none d-md-table-cell" th:text="${user.usuarPais}"></td>
-            <td class="d-none d-md-table-cell" th:text="${user.usuarCodigoPostal}"></td>
-            <td th:text="${user.usuarConsentimientoDatos}"></td>
-            <td class="d-none d-md-table-cell" th:text="${user.usuarCreado}"></td>
-          <td><a th:href="@{/users/detalle/{id}(id=${user.id})}" class="btn btn-warning">Editar</a></td>
+          <tr th:each="usuarios : ${usuarios}">
+            <td th:text="${usuarios.usuarCodigoIdentificacion}"></td>
+            <td th:text="${usuarios.usuarNombre}"></td>
+            <td th:text="${usuarios.usuarApellidos}"></td>
+            <td th:text="${usuarios.usuarDni}"></td>
+            <td th:text="${usuarios.usuarNumSS}"></td>
+            <td th:text="${usuarios.usuarGenero}"></td>
+            <td th:text="${usuarios.usuarFechaNacimiento}"></td>
+            <td th:text="${usuarios.usuarEmail}"></td>
+            <td th:text="${usuarios.usuarTelefono}"></td>
+            <td th:text="${usuarios.usuarDomicilio}"></td>
+            <td th:text="${usuarios.usuarPoblacion}"></td>
+            <td class="d-none d-md-table-cell" th:text="${usuarios.usuarPais}"></td>
+            <td class="d-none d-md-table-cell" th:text="${usuarios.usuarCodigoPostal}"></td>
+            <td th:text="${usuarios.usuarConsentimientoDatos}"></td>
+            <td class="d-none d-md-table-cell" th:text="${usuarios.usuarCreado}"></td>
+            <!--Editar-->
+            <td>
+              <a th:href="@{/usuarios/detalle/{id}(id=${usuarios.usuarCodigoIdentificacion})}" class="btn btn-primary">Editar</a>
+            </td>
+            <!--Eliminar-->
+            <td>
+              <form th:action="@{'/usuarios/eliminar/' + ${usuarios.usuarCodigoIdentificacion}}" method="post">
+                  <input type="hidden" name="_method" value="delete" />
+                  <button type="submit" class="btn btn-danger">Eliminar</button>
+              </form>
+          </td>
         </tr>
         </tbody>
       </table>

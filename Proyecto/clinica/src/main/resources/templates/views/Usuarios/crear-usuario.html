@@ -1,22 +1,101 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
     <head th:replace="fragments/header :: header">
     </head>
     <body>
-    <h1>Añadir usuario <span th:text="${nombre}"></span>.</h1>
+    <h1>Añadir usuario</h1>
     <div th:replace="fragments/navbar :: navbar"></div>
     
     <form th:action="@{/usuarios/crear}" th:object="${usuario}" method="post">
-        <!-- Reemplaza 'campo' con los nombres de los campos en tu clase Usuarios -->
-      <!--  <label for="campo">Campo:</label>
-        <input type="text" th:field="*{campo}" id="campo" name="campo">-->
-    
-        <!-- Repite lo anterior para cada campo en tu clase Usuarios -->
-        <div class="container">
-            <br />
-            <input type="submit" value="Añadir Usuario" class="btn btn-primary"/>
+        <div class="row">
+            <!--Nombre-->
+            <div class="col-md-6 col-lg-4 mb-3">
+                <label for="usuarNombre">*Nombre:</label>
+                <input type="text" class="form-control" th:field="*{usuarNombre}" id="usuarNombre" name="usuarNombre" required />
+            </div>
+            <!--Apellidos-->
+            <div class="col-md-6 col-lg-4 mb-3">
+                <label for="usuarApellidos">*Apellidos:</label>
+                <input type="text" class="form-control" th:field="*{usuarApellidos}" id="usuarApellidos" name="usuarApellidos" required />
+            </div>
+            <!--Email-->
+            <div class="col-md-6 col-lg-4 mb-3">
+                <label for="usuarEmail">*Email:</label>
+                <input type="text" class="form-control" th:field="*{usuarEmail}" id="usuarEmail" name="usuarEmail" required />
+            </div>
+            <!--DNI-->
+            <div class="col-md-6 col-lg-4 mb-3">
+                <label for="usuarDni">Nº DNI:</label>
+                <input type="text" class="form-control" th:field="*{usuarDni}" id="usuarDni" name="usuarDni" />
+            </div>
+            <!--Seg Soc-->
+            <div class="col-md-6 col-lg-4 mb-3">
+                <label for="usuarNumSS">*Nº Seguridad Social:</label>
+                <input type="long" class="form-control" th:field="*{usuarNumSS}" id="usuarNumSS" name="usuarNumSS" required/>
+            </div>
+            <!--Género-->
+            <div class="col-md-6 col-lg-4 mb-3">
+                <label for="usuarGenero">Género:</label>
+                <select class="form-control" id="usuarGenero" name="usuarGenero" th:field="*{usuarGenero}">
+                    <option value="Hombre">Hombre</option>
+                    <option value="Mujer">Mujer</option>
+                    <option value="Otro">Otro</option>
+                </select>
+            </div>
+            <!--Nacimiento-->
+            <div class="col-md-6 col-lg-4 mb-3">
+                <label for="usuarFechaNacimiento">*Fecha de nacimiento:</label>
+                <input type="date" class="form-control" th:field="*{usuarFechaNacimiento}" id="usuarFechaNacimiento" name="usuarFechaNacimiento" requiered/>
+            </div>
+            <!--Domicilio-->
+           <div class="col-md-6 col-lg-4 mb-3">
+                <label for="usuarDomicilio">Domicilio:</label>
+                <input type="text" class="form-control" th:field="*{usuarDomicilio}" id="usuarDomicilio" name="usuarDomicilio" />
+            </div>
+            <!--Población-->
+            <div class="col-md-6 col-lg-4 mb-3">
+                <label for="usuarPoblacion">Población:</label>
+                <input type="text" class="form-control" th:field="*{usuarPoblacion}" id="usuarPoblacion" name="usuarPoblacion" />
+            </div>
+            <!--Provincia-->
+            <div class="col-md-6 col-lg-4 mb-3">
+                <label for="usuarProvincia">Provincia:</label>
+                <input type="text" class="form-control" th:field="*{usuarProvincia}" id="usuarProvincia" name="usuarProvincia" />
+            </div>
+            <!--País-->
+            <div class="col-md-6 col-lg-4 mb-3">
+                <label for="usuarPais">País:</label>
+                <input type="text" class="form-control" th:field="*{usuarPais}" id="usuarPais" name="usuarPais" />
+            </div>
+            <!--Cod Postal-->
+            <div class="col-md-6 col-lg-4 mb-3">
+                <label for="usuarCodigoPostal">*Código postal:</label>
+                <input type="int" class="form-control" th:field="*{usuarCodigoPostal}" id="usuarCodigoPostal" name="usuarCodigoPostal" required />
+            </div>
+            <!--Teléfono-->
+            <div class="col-md-6 col-lg-4 mb-3">
+                <label for="usuarTelefono">Nº de teléfono:</label>
+                <input type="int" class="form-control" th:field="*{usuarTelefono}" id="usuarTelefono" name="usuarTelefono" required />
+            </div>
+            <!--Consentimiento LOPD-->
+            <div class="col-md-6 col-lg-4 mb-3">
+                <label for="usuarConsentimientoDatos">Consentimiento LOPD:</label>
+                <input type="checkbox" class="form-check" th:field="*{usuarConsentimientoDatos}" id="usuarConsentimientoDatos" name="usuarConsentimientoDatos" />
+            </div>
+            <!--Fecha Creación-->
+            <div class="col-md-6 col-lg-4 mb-3">
+                <label for="usuarCreado">Fecha de creación:</label>
+                <input type="datetime-local" class="form-control" th:field="*{usuarCreado}" id="usuarCreado" name="usuarCreado" readonly />
+            </div>
+            <div class="col-md-6 col-lg-4 mb-3">
+            </div>
+
+
+        <div class="col-md-6 col-lg-4 mb-3">
+            <button type="submit" class="btn btn-primary">Añadir Usuario</button>
             <button type="button" class="btn btn-primary" onclick="location.href='/usuarios/listado-usuarios'">Volver a Usuarios</button>
         </div>
+    </div>
     </form>
 </body>
 </html>

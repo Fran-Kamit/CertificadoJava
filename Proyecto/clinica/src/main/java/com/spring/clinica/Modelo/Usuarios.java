@@ -25,7 +25,6 @@ import org.springframework.stereotype.Component;
 
 @Entity
 @Table(name = "usuarios")
-
 public class Usuarios {
 
     @Id // clave primaria de la entidad (en este caso, la clase Personas)
