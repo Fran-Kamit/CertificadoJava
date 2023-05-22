@@ -64,8 +64,8 @@ public class UsuariosServicios {
     }
 
     // Eliminar usuario por ID
-    public void delete(UUID uuid) {
-        Usuarios usuario = findByusuarCodigoIdentificacion(uuid);
-        usuarioRepositorio.delete(usuario);
+    public void deleteById(UUID id) {
+        Usuarios existeUsuario = findByusuarCodigoIdentificacion(id);
+        usuarioRepositorio.delete(existeUsuario);
     }
 }

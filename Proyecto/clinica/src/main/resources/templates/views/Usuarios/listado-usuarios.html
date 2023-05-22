@@ -29,8 +29,9 @@
             <th class="d-none d-md-table-cell">País</th>
             <th class="d-none d-md-table-cell">Código postal</th>
             <th>Consiente Datos</th>
-            <th class="d-none d-md-table-cell">Fecha consentimiento</th>            
-            <th>Acciones</th></tr></thead>
+            <th class="d-none d-md-table-cell">Fecha consentimiento</th>         
+            <th>Acciones</th>
+            <th></th></tr></thead>
         <tbody>
           <tr th:each="usuarios : ${usuarios}">
             <td th:text="${usuarios.usuarCodigoIdentificacion}"></td>
@@ -54,10 +55,10 @@
             </td>
             <!--Eliminar-->
             <td>
-              <form th:action="@{'/usuarios/eliminar/' + ${usuarios.usuarCodigoIdentificacion}}" method="post">
-                  <input type="hidden" name="_method" value="delete" />
-                  <button type="submit" class="btn btn-danger">Eliminar</button>
-              </form>
+              <form th:action="@{/usuarios/eliminar/{id}(id=${usuarios.usuarCodigoIdentificacion})}" method="post">
+                <input type="hidden" name="_method" value="delete" />
+                <button type="submit" class="btn btn-danger">Eliminar</button>
+            </form>            
           </td>
         </tr>
         </tbody>

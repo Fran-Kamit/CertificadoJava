@@ -24,6 +24,8 @@ public class UsuariosControlador {
 
     @PostMapping("/crear")
     public String crearUsuario(@ModelAttribute Usuarios usuario) { 
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        usuario.setUsuarCreado(currentDateTime);
         usuariosServicios.save(usuario);
         return "redirect:/usuarios/listado-usuarios";
     }
@@ -69,28 +71,6 @@ public class UsuariosControlador {
         return "/views/Usuarios/detalle-usuario";
     }
 
- /*/   // Crear un nuevo usuario (POST)
-    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<Usuarios> createUser(@ModelAttribute Usuarios usuario) {
-        LocalDateTime currentDateTime = LocalDateTime.now();
-        usuario.setUsuarCreado(currentDateTime);
-        Usuarios newUser = usuariosServicios.save(usuario);
-        return new ResponseEntity<>(newUser, HttpStatus.CREATED);
-    }*/
-    
-    //añadir usuarios
-    /*@PostMapping("/usuarios/crear")
-    public String createUsuario(@ModelAttribute Usuarios usuario, BindingResult result) {
-        if (result.hasErrors()) {
-            return "error";
-        }
-         LocalDateTime currentDateTime = LocalDateTime.now();
-        usuario.setUsuarCreado(currentDateTime);
-        usuariosServicios.save(usuario);
-        return "redirect:/Usuarios/crear-usuario";
-    }*/
-
-
     // Actualizar un user existente (PUT)
     @PutMapping("/{id}")
     public ResponseEntity<Usuarios> updateUser(@PathVariable UUID id, @RequestBody Usuarios usuario) {
@@ -98,11 +78,17 @@ public class UsuariosControlador {
         return new ResponseEntity<>(actualizarUsuario, HttpStatus.OK);
     }
 
-    //Eliminar un User por ID (DELETE)
-    @DeleteMapping("eliminar/{id}")
+    //Eliminar un Usuario por ID (DELETE)
+   /* @DeleteMapping("/eliminar/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable UUID id) {
         usuariosServicios.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }*/
+
+    @PostMapping("/eliminar/{id}")
+    public String eliminarUsuario(@PathVariable UUID id) {
+        usuariosServicios.deleteById(id);
+        return "redirect:/usuarios/listado-usuarios";
     }
 
     //Creando la interfaz web
@@ -112,7 +98,7 @@ public class UsuariosControlador {
 
     //Obtener listado de usuarios
     @GetMapping("/listado-usuarios")
-    public String obtenerUsuarios(Model model) {
+    public String listarUsers(Model model) {
         List<Usuarios> usuarios = usuariosServicios.findAll();
         model.addAttribute("usuarios", usuarios);
         return "/views/Usuarios/listado-usuarios";
