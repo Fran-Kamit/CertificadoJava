@@ -34,6 +34,7 @@
         email varchar(255),
         fecha_nacimiento date,
         genero varchar(255),
+        modificado_dia datetime(6),
         nombre varchar(255),
         numss bigint,
         pais varchar(255),

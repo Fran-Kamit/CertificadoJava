@@ -84,6 +84,9 @@ public class Usuarios {
     @Column(name = "creado_dia")
     private LocalDateTime usuarCreado;
 
+    @Column(name = "modificado_dia")
+    private LocalDateTime usuarModificado;
+
     @OneToMany(mappedBy = "usuarios", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Ingresos> ingresos = new ArrayList<>();
 
@@ -97,7 +100,7 @@ public class Usuarios {
     public Usuarios(UUID usuarCodigoIdentificacion, long usuarNumSS, String usuarDni, String usuarNonmbre, String usuarApellidos,
     String usuarGenero, LocalDate usuarFechaNacimiento, String usuarDomicilio, String usuarPoblacion, String usuarProvincia,
     String usuarPais, int usuarCodigoPostal, int usuarTelefono, @Email String usuarEmail, boolean usuarConsentimientoDatos,
-    LocalDateTime usuarCreado) {
+    LocalDateTime usuarCreado, LocalDateTime usuarModificado) {
     this.usuarCodigoIdentificacion = usuarCodigoIdentificacion;
     this.usuarNumSS = usuarNumSS;
     this.usuarDni = usuarDni;
@@ -114,13 +117,14 @@ public class Usuarios {
     this.usuarEmail = usuarEmail;
     this.usuarConsentimientoDatos = usuarConsentimientoDatos;
     this.usuarCreado = usuarCreado;
+    this.usuarModificado = usuarModificado;
 }
 
     //Métodos
     @Component
     public class StringToLocalDateTimeConverter implements Converter<String, LocalDateTime> {
     
-        private static final String DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm";
+        private static final String DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss";
     
         @Override
         public LocalDateTime convert(String source) {
@@ -261,6 +265,14 @@ public class Usuarios {
         this.usuarCreado = usuarCreado;
     }
 
+    public LocalDateTime getUsuarModificado() {
+        return usuarModificado;
+    }
+
+    public void setUsuarModificado(LocalDateTime usuarModificado) {
+        this.usuarModificado = usuarModificado;
+    }
+
     public List<Ingresos> getIngresos() {
         return ingresos;
     }
@@ -286,7 +298,7 @@ public class Usuarios {
                 + ", usuarDomicilio=" + usuarDomicilio + ", usuarPoblacion=" + usuarPoblacion + ", usuarProvincia="
                 + usuarProvincia + ", usuarPais=" + usuarPais + ", usuarCodigoPostal=" + usuarCodigoPostal
                 + ", usuarTelefono=" + usuarTelefono + ", usuarEmail=" + usuarEmail + ", usuarConsentimientoDatos="
-                + usuarConsentimientoDatos + ", usuarCreado=" + usuarCreado + ", ingresos=" + ingresos + ", medicos="
-                + medicos + "]";
+                + usuarConsentimientoDatos + ", usuarCreado=" + usuarCreado + ", usuarModificado=" + usuarModificado 
+                + ", ingresos=" + ingresos + ", medicos=" + medicos + "]";
     }
 }

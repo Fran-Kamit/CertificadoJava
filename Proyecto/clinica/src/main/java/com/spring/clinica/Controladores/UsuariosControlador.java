@@ -8,11 +8,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
+
+import javax.servlet.http.HttpSession;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Controller //se utiliza para construir aplicaciones web y devuelve vistas.
@@ -22,9 +27,10 @@ public class UsuariosControlador {
     @Autowired
     private UsuariosServicios usuariosServicios;
 
+    /* Se crea poniendo la hora de forma automática*/
     @PostMapping("/crear")
     public String crearUsuario(@ModelAttribute Usuarios usuario) { 
-        LocalDateTime currentDateTime = LocalDateTime.now();
+        LocalDateTime currentDateTime = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
         usuario.setUsuarCreado(currentDateTime);
         usuariosServicios.save(usuario);
         return "redirect:/usuarios/listado-usuarios";
@@ -35,7 +41,6 @@ public class UsuariosControlador {
         Usuarios usuario = new Usuarios();
         usuario.setUsuarCodigoIdentificacion(UUID.randomUUID()); // Generar un nuevo UUID
         model.addAttribute("usuario", usuario);
-        /*model.addAttribute("usuario", new Usuarios());*/
         return "/views/Usuarios/crear-usuario";
     }
 
@@ -45,7 +50,7 @@ public class UsuariosControlador {
         if (dateTime == null) {
             return "";
         }
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
         return dateTime.format(formatter);
     }
 
@@ -56,7 +61,7 @@ public class UsuariosControlador {
         return new ResponseEntity<>(usuarios, HttpStatus.OK);
     }
 
-    // Obtener un user por ID (GET)
+    // Obtener un usuario por ID (GET)
     @GetMapping("/{id}")
     public ResponseEntity<Usuarios> getUsuarioByusuarCodigoIdentificacion(@PathVariable UUID id) {
         Usuarios usuario = usuariosServicios.findByusuarCodigoIdentificacion(id);
@@ -65,26 +70,31 @@ public class UsuariosControlador {
 
     //Obtener usuario para editar en html
     @GetMapping("/detalle/{id}")
-    public String verUsuarioDetalle(@PathVariable UUID id, Model model) {
+    public String verUsuarioDetalle(@PathVariable UUID id, Model model, HttpSession session) {
         Usuarios usuario = usuariosServicios.findByusuarCodigoIdentificacion(id);
         model.addAttribute("usuario", usuario);
+        session.setAttribute("creado_dia", usuario.getUsuarCreado());
         return "/views/Usuarios/detalle-usuario";
     }
-
-    // Actualizar un user existente (PUT)
-    @PutMapping("/{id}")
-    public ResponseEntity<Usuarios> updateUser(@PathVariable UUID id, @RequestBody Usuarios usuario) {
-        Usuarios actualizarUsuario = usuariosServicios.update(id, usuario);
-        return new ResponseEntity<>(actualizarUsuario, HttpStatus.OK);
-    }
+    
+    /* Se actualiza poniendo la hora de forma automática*/
+    // Actualizar un usuario existente (POST)
+    @PostMapping("/actualizar/{id}")
+    public String actualizarUsuario(@ModelAttribute("usuario") Usuarios usuario, @PathVariable UUID id, BindingResult result, HttpSession session) {
+        if (result.hasErrors()) {
+            // Manejar errores de validación aquí
+            return "views/Usuarios/detalle-usuario";
+        }
+        LocalDateTime currentDateTime = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
+        usuario.setUsuarModificado(currentDateTime);
+        usuario.setUsuarCodigoIdentificacion(id);
+        LocalDateTime usuarCreado = (LocalDateTime) session.getAttribute("creado_dia");
+        usuario.setUsuarCreado(usuarCreado);
+        usuariosServicios.save(usuario);
+        return "redirect:/usuarios/listado-usuarios";
+    }  
 
     //Eliminar un Usuario por ID (DELETE)
-   /* @DeleteMapping("/eliminar/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable UUID id) {
-        usuariosServicios.delete(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }*/
-
     @PostMapping("/eliminar/{id}")
     public String eliminarUsuario(@PathVariable UUID id) {
         usuariosServicios.deleteById(id);

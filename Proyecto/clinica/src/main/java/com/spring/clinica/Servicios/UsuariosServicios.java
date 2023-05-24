@@ -59,6 +59,7 @@ public class UsuariosServicios {
         usuario.setUsuarTelefono(usuarDetalles.getUsuarTelefono());
         usuario.setUsuarEmail(usuarDetalles.getUsuarEmail());
         usuario.setUsuarConsentimientoDatos(usuarDetalles.isUsuarConsentimientoDatos());
+        usuario.setUsuarCreado(usuarDetalles.getUsuarCreado());
 
         return usuarioRepositorio.save(usuario);
     }
