@@ -21,6 +21,11 @@ public class UsuariosServicios {
         return usuarioRepositorio.findAll();
     }
 
+    // Obtener la lista de usuarios
+    /*public List<Usuarios> obtenerUsuarios() {
+        return findAll();
+    }*/
+
     // Encontrar un usuario por ID
     public Usuarios findByusuarCodigoIdentificacion(UUID id) {
         Optional<Usuarios> usuario = usuarioRepositorio.findByusuarCodigoIdentificacion(id);

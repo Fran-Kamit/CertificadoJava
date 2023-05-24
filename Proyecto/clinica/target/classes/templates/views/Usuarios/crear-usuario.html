@@ -4,10 +4,10 @@
     </head>
     <body>
         <div th:replace="fragments/navbar :: navbar"></div>
-        <div class="container"><h1>Añadir usuario</h1></div>
+        <div class="container"><h1>Añadir usuario</h1></div><br/>
     
         <form th:action="@{/usuarios/crear}" th:object="${usuario}" method="post">
-            <div class="row">
+            <div class="row ml-2 mr-2">
                 <!--Nombre-->
                 <div class="col-md-6 col-lg-4 mb-3">
                     <label for="usuarNombre">Nombre:*</label>
@@ -87,9 +87,9 @@
                 <div class="col-md-6 col-lg-4 mb-3">
                 </div>
 
-                <div class="col-md-6 col-lg-4 mb-3">
-                    <button type="submit" class="btn btn-primary">Añadir Usuario</button>
-                    <button type="button" class="btn btn-primary" onclick="location.href='/usuarios/listado-usuarios'">Volver a Usuarios</button>
+                <div class="col-md-6 col-lg-4 mb-3 text-center"><br/>
+                    <button type="submit" class="btn btn-primary">Añadir</button>
+                    <button type="button" class="btn btn-secondary" onclick="location.href='/usuarios/listado-usuarios'">Cancelar</button>
                 </div>
             </div>
         </form>

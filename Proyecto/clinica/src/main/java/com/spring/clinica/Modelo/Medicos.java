@@ -1,6 +1,7 @@
 package com.spring.clinica.Modelo;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -28,7 +29,6 @@ public class Medicos implements Serializable{
     @OneToOne
     @JoinColumn(name = "codigo_identificacion")
     private Usuarios usuarios;
-    ////////////////
 
     @Column(name = "numeroColegiado")
     private int medicNumeroColegiado;
@@ -39,6 +39,12 @@ public class Medicos implements Serializable{
     @Column(name = "cargo")
     private String medicCargo;
 
+    @Column(name = "creado_dia")
+    private LocalDateTime medicCreado;
+
+    @Column(name = "modificado_dia")
+    private LocalDateTime medicModificado;
+
     @OneToMany(mappedBy = "medicos", orphanRemoval = true)
     private List<Ingresos> ingresos = new ArrayList<>();
 
@@ -46,11 +52,14 @@ public class Medicos implements Serializable{
     public Medicos(){
     }
 
-    public Medicos(Usuarios usuarios, int medicNumeroColegiado, String medicEspecialidad, String medicCargo) {
+    public Medicos(Usuarios usuarios, int medicNumeroColegiado, String medicEspecialidad,
+    String medicCargo, LocalDateTime medicCreado, LocalDateTime medicModificado) {
         this.usuarios = usuarios;
         this.medicNumeroColegiado = medicNumeroColegiado;
         this.medicEspecialidad = medicEspecialidad;
         this.medicCargo = medicCargo;
+        this.medicCreado = medicCreado;
+        this.medicModificado = medicModificado;
     }
 
     //Getters y setters
@@ -86,11 +95,27 @@ public class Medicos implements Serializable{
         this.medicCargo = medicCargo;
     }
 
+    public LocalDateTime getMedicCreado() {
+        return medicCreado;
+    }
+
+    public void setMedicCreado(LocalDateTime medicCreado) {
+        this.medicCreado = medicCreado;
+    }
+
+    public LocalDateTime getMedicModificado() {
+        return medicModificado;
+    }
+
+    public void setMedicModificado(LocalDateTime medicModificado) {
+        this.medicModificado = medicModificado;
+    }
+
     //toString
     @Override
     public String toString() {
         return "Medicos [usuarios=" + usuarios + ", medicNumeroColegiado="
         + medicNumeroColegiado + ", medicEspecialidad=" + medicEspecialidad
-        + ", medicCargo=" + medicCargo + "]";
+        + ", medicCargo=" + medicCargo + ", medicCreado=" + medicCreado + ", medicModificado=" + medicModificado + "]";
     }
 }

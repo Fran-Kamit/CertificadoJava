@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+  <head th:replace="fragments/header :: header">
+  </head>
+  <body>
+    <div th:replace="fragments/navbar :: navbar"></div>
+    <div class="container">
+      <h1>Listado de médicos</h1>
+      <a th:href="@{/medicos/crear-medico}" class="btn btn-primary">Añadir Médico</a>
+      <button type="button" class="btn btn-primary my-3" onclick="location.href='/inicio'">Volver a Inicio<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 18"><path fill-rule="evenodd" d="M8 3.293l5.5 5.5a.5.5 0 0 1-.707.707L8 4.707 2.707 10.5a.5.5 0 1 1-.707-.707L8 3.293z"/><path fill-rule="evenodd" d="M7.5 10.5V14h1v-3.5a.5.5 0 0 1 1 0V14h1v-3.5a2 2 0 0 0-2-2h-1a2 2 0 0 0-2 2V14h1v-3.5a.5.5 0 0 1 1 0z"/></svg></button>
+    </div> 
+    <!-- tabla de Médicos-->
+    <div class="row ml-2 mr-2">
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead class="thead-dark text-center">
+            <tr>
+              <th>ID</th>
+              <th>Número de colegiado</th>
+              <th>Especialidad</th>
+              <th>Cargo</th>
+              <th class="d-none d-md-table-cell">Fecha creación</th>
+              <th class="d-none d-md-table-cell">Fecha modificación</th>         
+              <th>Acción</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="medicos : ${medicos}">
+              <td th:text="${medicos.codigoIdentificacion}"></td>
+              <td th:text="${medicos.medicNumeroColegiado}"></td>
+              <td th:text="${medicos.medicEspecialidad}"></td>
+              <td th:text="${medicos.medicCargo}"></td>
+              <td class="d-none d-md-table-cell" th:text="${medicos.medicCreado}"></td>
+              <td class="d-none d-md-table-cell" th:text="${medicos.medicModificado}"></td>
+
+              <!--Editar-->
+              <td>
+                <a th:href="@{/medicos/detalle/{id}(id=${medicos.codigoIdentificacion})}" class="btn btn-primary">Editar</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>

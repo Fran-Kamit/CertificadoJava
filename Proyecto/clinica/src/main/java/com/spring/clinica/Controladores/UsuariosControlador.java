@@ -108,7 +108,7 @@ public class UsuariosControlador {
 
     //Obtener listado de usuarios
     @GetMapping("/listado-usuarios")
-    public String listarUsers(Model model) {
+    public String listarUsuarios(Model model) {
         List<Usuarios> usuarios = usuariosServicios.findAll();
         model.addAttribute("usuarios", usuarios);
         return "/views/Usuarios/listado-usuarios";

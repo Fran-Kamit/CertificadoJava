@@ -54,12 +54,14 @@ public class MedicosServicios {
         medico.setMedicNumeroColegiado(medicDetalles.getMedicNumeroColegiado());
         medico.setMedicEspecialidad(medicDetalles.getMedicEspecialidad());
         medico.setMedicCargo(medicDetalles.getMedicCargo());
+        medico.setMedicCreado(medicDetalles.getMedicCreado());
 
         return medicosRepositorio.save(medico);
     }
     
     // Eliminar un médico
-    public void delete(Medicos medico) {
-        medicosRepositorio.delete(medico);
+    public void deleteById(UUID id) {
+        Medicos existeMedico = findByCodigoIdentificacion(id);
+        medicosRepositorio.delete(existeMedico);
     }
 }

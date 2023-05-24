@@ -6,19 +6,16 @@
         <div th:replace="fragments/navbar :: navbar"></div>
         <div class="container"><h1>Editar usuario</h1></div>
 
-        <div class="row">
-            <div class="col-md-6 col-lg-4 mb-3"></div>
-            <div class="col-md-6 col-lg-4 mb-3"></div>
-            <div class="col-md-6 col-lg-4 mb-3 text-right">
+        <!--Formulario para eliminar usuario-->
+        <div class="text-right mr-4">
                 <form th:action="@{/usuarios/eliminar/{id}(id=${usuario.usuarCodigoIdentificacion})}" method="post">
                     <input type="hidden" name="_method" value="delete" />
                     <button type="submit" class="btn btn-danger" onclick="location.href='/usuarios/listado-usuarios'">Eliminar Usuario</button>
                 </form> 
-            </div>   
         </div>
-        
+        <!--Formulario para editar usuario-->
         <form th:action="@{/usuarios/actualizar/{id}(id=${usuario.usuarCodigoIdentificacion})}" th:object="${usuario}" method="post">
-            <div class="row">
+            <div class="row ml-2 mr-2">
                 <!--Nombre-->
                 <div class="col-md-6 col-lg-4 mb-3">
                     <label for="usuarNombre">Nombre:*</label>
@@ -99,8 +96,8 @@
                 </div>
 
                 <div class="col-md-6 col-lg-4 mb-3 text-center"><br/>
-                    <button type="submit" class="btn btn-primary">Editar Usuario</button>
-                    <button type="button" class="btn btn-primary" onclick="location.href='/usuarios/listado-usuarios'">Volver a Usuarios</button>
+                    <button type="submit" class="btn btn-primary">Aplicar</button>
+                    <button type="button" class="btn btn-secondary" onclick="location.href='/usuarios/listado-usuarios'">Cancelar</button>
                 </div>
             </div>
         </form>
