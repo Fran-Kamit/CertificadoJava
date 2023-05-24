@@ -12,7 +12,7 @@
             <div class="col-md-6 col-lg-4 mb-3 text-right">
                 <form th:action="@{/usuarios/eliminar/{id}(id=${usuario.usuarCodigoIdentificacion})}" method="post">
                     <input type="hidden" name="_method" value="delete" />
-                    <button type="submit" class="btn btn-danger" onclick="location.href='/usuarios/listado-usuarios'">Eliminar</button>
+                    <button type="submit" class="btn btn-danger" onclick="location.href='/usuarios/listado-usuarios'">Eliminar Usuario</button>
                 </form> 
             </div>   
         </div>
