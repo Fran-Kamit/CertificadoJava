@@ -12,7 +12,7 @@
                 <div class="col-md-6 col-lg-4 mb-3">
                     <label for="usuarios">Usuarios:</label>
                     <select class="form-control" id="usuarios" name="usuarios">
-                        <option th:each="usuario : ${usuarios}" th:value="${usuario.usuarCodigoIdentificacion}" th:text="${usuario.usuarApellidos + ', ' + usuario.usuarNombre + ' - ' + usuario.usuarDni}"></option>
+                        <option th:each="usuario : ${usuarios}" th:value="${usuario.usuarCodigoIdentificacion.toString()}" th:text="${usuario.usuarApellidos + ', ' + usuario.usuarNombre + ' - ' + usuario.usuarDni}"></option>
                     </select>
                 </div>
                 <!--Número Colegiado-->

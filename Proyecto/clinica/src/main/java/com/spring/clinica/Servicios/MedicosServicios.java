@@ -43,14 +43,24 @@ public class MedicosServicios {
 
     // Guardar un médico
     public Medicos save(Medicos medico) {
-        return medicosRepositorio.save(medico);
+        if (medico.getCodigoIdentificacion() != null) {
+            if (medicosRepositorio.findById(medico.getCodigoIdentificacion()).isPresent()) {
+                return medicosRepositorio.save(medico);
+            } else {
+                // Añadir lógica aquí para manejar el caso en que el médico no existe en la base de datos
+            }
+        } else {
+            medico.setCodigoIdentificacion(UUID.randomUUID());
+            return medicosRepositorio.save(medico);
+        }
+        return null; // o cualquier otro manejo de errores que prefieras
     }
+    
 
     // Actualizar un médico existente
     public Medicos update(UUID uuid, Medicos medicDetalles) {
         Medicos medico = findByCodigoIdentificacion(uuid);
-        
-        medico.setUsuarios(medicDetalles.getUsuarios());
+
         medico.setMedicNumeroColegiado(medicDetalles.getMedicNumeroColegiado());
         medico.setMedicEspecialidad(medicDetalles.getMedicEspecialidad());
         medico.setMedicCargo(medicDetalles.getMedicCargo());

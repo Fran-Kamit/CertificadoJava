@@ -18,9 +18,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "medicos")
 
-public class Medicos implements Serializable{
+public class Medicos implements Serializable {
 
-    //ID clave principal que se recoge del ID de la tabla usuarios
+    // ID clave principal que se recoge del ID de la tabla usuarios
     @Id
     @Column(name = "codigo_identificacion")
     private UUID codigoIdentificacion;
@@ -48,21 +48,31 @@ public class Medicos implements Serializable{
     @OneToMany(mappedBy = "medicos", orphanRemoval = true)
     private List<Ingresos> ingresos = new ArrayList<>();
 
-    //Constructores
-    public Medicos(){
+    // Constructores
+    public Medicos() {
     }
 
-    public Medicos(Usuarios usuarios, int medicNumeroColegiado, String medicEspecialidad,
-    String medicCargo, LocalDateTime medicCreado, LocalDateTime medicModificado) {
+    public Medicos(UUID codigoIdentificacion, Usuarios usuarios, int medicNumeroColegiado, String medicEspecialidad,
+            String medicCargo, LocalDateTime medicCreado, LocalDateTime medicModificado, List<Ingresos> ingresos) {
+        this.codigoIdentificacion = codigoIdentificacion;
         this.usuarios = usuarios;
         this.medicNumeroColegiado = medicNumeroColegiado;
         this.medicEspecialidad = medicEspecialidad;
         this.medicCargo = medicCargo;
         this.medicCreado = medicCreado;
         this.medicModificado = medicModificado;
+        this.ingresos = ingresos;
     }
 
-    //Getters y setters
+    // Getters y setters
+    public UUID getCodigoIdentificacion() {
+        return codigoIdentificacion;
+    }
+
+    public void setCodigoIdentificacion(UUID codigoIdentificacion) {
+        this.codigoIdentificacion = codigoIdentificacion;
+    }
+
     public Usuarios getUsuarios() {
         return usuarios;
     }
@@ -111,11 +121,20 @@ public class Medicos implements Serializable{
         this.medicModificado = medicModificado;
     }
 
-    //toString
+    public List<Ingresos> getIngresos() {
+        return ingresos;
+    }
+
+    public void setIngresos(List<Ingresos> ingresos) {
+        this.ingresos = ingresos;
+    }
+
     @Override
     public String toString() {
-        return "Medicos [usuarios=" + usuarios + ", medicNumeroColegiado="
-        + medicNumeroColegiado + ", medicEspecialidad=" + medicEspecialidad
-        + ", medicCargo=" + medicCargo + ", medicCreado=" + medicCreado + ", medicModificado=" + medicModificado + "]";
+        return "Medicos [codigoIdentificacion=" + codigoIdentificacion + ", usuarios=" + usuarios
+                + ", medicNumeroColegiado=" + medicNumeroColegiado + ", medicEspecialidad=" + medicEspecialidad
+                + ", medicCargo=" + medicCargo + ", medicCreado=" + medicCreado + ", medicModificado=" + medicModificado
+                + ", ingresos=" + ingresos + "]";
     }
+
 }

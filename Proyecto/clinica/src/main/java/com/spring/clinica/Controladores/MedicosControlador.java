@@ -29,25 +29,29 @@ public class MedicosControlador {
     @Autowired
     private MedicosServicios medicosServicios;
     
-
-
     /*Crear médico con fecha automática*/
-    @PostMapping("/crear")
-    public String crearMedico(@ModelAttribute Medicos medico, @RequestParam UUID usuarios) {
-        Usuarios usuario = usuariosServicios.findByusuarCodigoIdentificacion(usuarios);
-        medico.setUsuarios(usuario);
-        LocalDateTime currentDateTime = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
-        medico.setMedicCreado(currentDateTime);
-        medicosServicios.save(medico);
-        return "redirect:/medicos/listado-medicos";
-    }
+@PostMapping("/crear")
+public String crearMedico(@ModelAttribute Medicos medico, @RequestParam String usuarios) {
+    UUID codigoIdentificacion = UUID.fromString(usuarios);
+    
+    // Asigna el usuario al médico y establece la hora de creación
+    medico.setCodigoIdentificacion(codigoIdentificacion);
+
+    LocalDateTime currentDateTime = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
+    medico.setMedicCreado(currentDateTime);
+
+    // Guarda el médico en la base de datos
+    medicosServicios.save(medico);
+
+    return "redirect:/medicos/listado-medicos";
+}
 
     @GetMapping("/crear-medico")
     public String showCreateMedicForm(Model model) {
         Medicos medico = new Medicos();
-        model.addAttribute("medico", medico);
-
         List<Usuarios> usuarios = usuariosServicios.findAll();
+        
+        model.addAttribute("medico", medico);     
         model.addAttribute("usuarios", usuarios); // Agrega la lista de usuarios al modelo
         return "/views/Medicos/crear-medico";
     }
