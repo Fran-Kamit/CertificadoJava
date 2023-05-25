@@ -26,6 +26,7 @@ public class MedicosControlador {
 
     @Autowired
     private UsuariosServicios usuariosServicios;
+    @Autowired
     private MedicosServicios medicosServicios;
     
 
