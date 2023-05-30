@@ -95,7 +95,7 @@ public String crearMedico(@ModelAttribute Medicos medico, @RequestParam String u
         }
         LocalDateTime currentDateTime = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
         medico.setMedicModificado(currentDateTime);
-        /*medico.setcodigoIdentificacion(id);*/
+        medico.setCodigoIdentificacion(id);
         LocalDateTime medicCreado = (LocalDateTime) session.getAttribute("medic_creado_dia");
         medico.setMedicCreado(medicCreado);
         medicosServicios.save(medico);
