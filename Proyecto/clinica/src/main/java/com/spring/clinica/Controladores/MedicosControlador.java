@@ -29,29 +29,34 @@ public class MedicosControlador {
     private MedicosServicios medicosServicios;
     
     /*Crear médico con fecha automática*/
-@PostMapping("/crear")
-public String crearMedico(@ModelAttribute Medicos medico, @RequestParam String usuarCodigoIdentificacion) {
-    String codigoIdentificacion = (usuarCodigoIdentificacion);
-    System.out.println("El código del usuario que queremos hacer medico es: "+codigoIdentificacion);
-    // Asigna el usuario al médico y establece la hora de creación
-    medico.setCodigoIdentificacion(codigoIdentificacion);
+    @PostMapping("/crear")
+    public String crearMedico(@ModelAttribute Medicos medico, @RequestParam String usuarCodigoIdentificacion, @RequestParam String nombreUsuario, @RequestParam String apellidosUsuario) {
+        String codigoIdentificacion = (usuarCodigoIdentificacion);
+        medico.setCodigoIdentificacion(codigoIdentificacion);
+        String nombre = (nombreUsuario);
+        medico.setNombreUsuario(nombre);
+        String apellidos = (apellidosUsuario);
+        medico.setApellidoUsuario(apellidos);
 
-    LocalDateTime currentDateTime = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
-    medico.setMedicCreado(currentDateTime);
+        // Asigna y establece la hora de creación
+        LocalDateTime currentDateTime = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
+        medico.setMedicCreado(currentDateTime);
 
-    // Guarda el médico en la base de datos
-    medicosServicios.save(medico);
+        // Guarda el médico en la base de datos
+        medicosServicios.save(medico);
 
-    return "redirect:/medicos/listado-medicos";
-}
+        return "redirect:/medicos/listado-medicos";
+    }
 
     @GetMapping("/crear-medico")
     public String showCreateMedicForm(Model model) {
-        Medicos medico = new Medicos();
         List<Usuarios> usuarios = usuariosServicios.findAll();
-        
-        model.addAttribute("medico", medico);     
+        List<Medicos> medicos = medicosServicios.findAll();
+
+        usuarios.removeIf(usuario -> medicos.stream().anyMatch(medico -> medico.getCodigoIdentificacion().equals(usuario.getUsuarCodigoIdentificacion().toString())));
+
         model.addAttribute("usuarios", usuarios); // Agrega la lista de usuarios al modelo
+        model.addAttribute("medico", new Medicos());     
         return "/views/Medicos/crear-medico";
     }
     

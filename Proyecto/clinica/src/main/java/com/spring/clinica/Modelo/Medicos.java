@@ -20,6 +20,12 @@ public class Medicos {
     @Column(name = "codigo_identificacion")
     private String codigoIdentificacion;
 
+    @Column(name = "nombreUsuario")
+    private String nombreUsuario;
+
+    @Column(name = "apellidoUsuario")
+    private String apellidoUsuario;
+
     @Column(name = "numeroColegiado")
     private int medicNumeroColegiado;
 
@@ -42,9 +48,12 @@ public class Medicos {
     public Medicos() {
     }
 
-    public Medicos(String codigoIdentificacion, int medicNumeroColegiado, String medicEspecialidad,
-            String medicCargo, LocalDateTime medicCreado, LocalDateTime medicModificado, List<Ingresos> ingresos) {
+    public Medicos(String codigoIdentificacion, String nombreUsuario, String apellidoUsuario, int medicNumeroColegiado,
+            String medicEspecialidad, String medicCargo, LocalDateTime medicCreado, LocalDateTime medicModificado,
+            List<Ingresos> ingresos) {
         this.codigoIdentificacion = codigoIdentificacion;
+        this.nombreUsuario = nombreUsuario;
+        this.apellidoUsuario = apellidoUsuario;
         this.medicNumeroColegiado = medicNumeroColegiado;
         this.medicEspecialidad = medicEspecialidad;
         this.medicCargo = medicCargo;
@@ -54,12 +63,29 @@ public class Medicos {
     }
 
     // Getters y setters
+
     public String getCodigoIdentificacion() {
         return codigoIdentificacion;
     }
 
     public void setCodigoIdentificacion(String codigoIdentificacion) {
         this.codigoIdentificacion = codigoIdentificacion;
+    }
+
+    public String getNombreUsuario() {
+        return nombreUsuario;
+    }
+
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
+    }
+
+    public String getApellidoUsuario() {
+        return apellidoUsuario;
+    }
+
+    public void setApellidoUsuario(String apellidoUsuario) {
+        this.apellidoUsuario = apellidoUsuario;
     }
 
     public int getMedicNumeroColegiado() {
@@ -112,10 +138,9 @@ public class Medicos {
 
     @Override
     public String toString() {
-        return "Medicos [codigoIdentificacion=" + codigoIdentificacion
-                + ", medicNumeroColegiado=" + medicNumeroColegiado + ", medicEspecialidad=" + medicEspecialidad
-                + ", medicCargo=" + medicCargo + ", medicCreado=" + medicCreado + ", medicModificado=" + medicModificado
-                + ", ingresos=" + ingresos + "]";
+        return "Medicos [codigoIdentificacion=" + codigoIdentificacion + ", nombreUsuario=" + nombreUsuario
+                + ", apellidoUsuario=" + apellidoUsuario + ", medicNumeroColegiado=" + medicNumeroColegiado
+                + ", medicEspecialidad=" + medicEspecialidad + ", medicCargo=" + medicCargo + ", medicCreado="
+                + medicCreado + ", medicModificado=" + medicModificado + ", ingresos=" + ingresos + "]";
     }
-
 }

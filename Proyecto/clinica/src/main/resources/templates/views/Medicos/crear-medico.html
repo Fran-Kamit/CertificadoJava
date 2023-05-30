@@ -15,6 +15,16 @@
                         <option th:each="usuario : ${usuarios}" th:value="${usuario.usuarCodigoIdentificacion.toString()}" th:text="${usuario.usuarApellidos + ', ' + usuario.usuarNombre + ' - ' + usuario.usuarDni}"></option>
                     </select>
                 </div>
+                <!--Nombre-->
+                <div class="col-md-6 col-lg-4 mb-3">
+                    <label for="nombreUsuario">Nombre:</label>
+                    <input type="text" class="form-control" th:field="*{medicEspecialidad}" id="medicEspecialidad" name="medicEspecialidad"/>
+                </div>
+                <!--Apellidos-->
+                <div class="col-md-6 col-lg-4 mb-3">
+                    <label for="apellidosUsuario">Apellidos:</label>
+                    <input type="text" class="form-control" th:field="*{medicEspecialidad}" id="medicEspecialidad" name="medicEspecialidad"/>
+                </div>
                 <!--Número Colegiado-->
                 <div class="col-md-6 col-lg-4 mb-3">
                     <label for="medicNumeroColegiado">Número de colegiado:*</label>
@@ -29,6 +39,8 @@
                 <div class="col-md-6 col-lg-4 mb-3">
                     <label for="medicCargo">Cargo:</label>
                     <input type="text" class="form-control" th:field="*{medicCargo}" id="medicCargo" name="medicCargo"/>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-3">
                 </div>
                 <div class="col-md-6 col-lg-4 mb-3">
                 </div>
