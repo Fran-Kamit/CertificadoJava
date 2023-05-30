@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
-import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
@@ -89,7 +88,7 @@ public String crearMedico(@ModelAttribute Medicos medico, @RequestParam String u
     /* Se actualiza poniendo la hora de forma automática*/
     // Actualizar un médico (POST)
     @PostMapping("/actualizar/{id}")
-    public String actualizarMedico(@ModelAttribute("medico") Medicos medico, @PathVariable UUID id, BindingResult result, HttpSession session) {
+    public String actualizarMedico(@ModelAttribute("medico") Medicos medico, @PathVariable String id, BindingResult result, HttpSession session) {
         if (result.hasErrors()) {
             // Manejar errores de validación aquí
             return "views/Medicos/detalle-medico";
