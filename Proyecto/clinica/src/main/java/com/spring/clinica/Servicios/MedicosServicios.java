@@ -8,7 +8,6 @@ import com.spring.clinica.Repositorios.MedicosRepositorio;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class MedicosServicios {
@@ -22,7 +21,7 @@ public class MedicosServicios {
     }
 
     // Encontrar médicos por ID
-    public Medicos findByCodigoIdentificacion(UUID id) {
+    public Medicos findByCodigoIdentificacion(String id) {
         Optional<Medicos> medico = medicosRepositorio.findByCodigoIdentificacion(id);
         if (medico.isPresent()) {
             return medico.get();
@@ -43,23 +42,13 @@ public class MedicosServicios {
 
     // Guardar un médico
     public Medicos save(Medicos medico) {
-        if (medico.getCodigoIdentificacion() != null) {
-            if (medicosRepositorio.findById(medico.getCodigoIdentificacion()).isPresent()) {
-                return medicosRepositorio.save(medico);
-            } else {
-                // Añadir lógica aquí para manejar el caso en que el médico no existe en la base de datos
-            }
-        } else {
-            medico.setCodigoIdentificacion(UUID.randomUUID());
-            return medicosRepositorio.save(medico);
-        }
-        return null; // o cualquier otro manejo de errores que prefieras
+        return medicosRepositorio.save(medico);// o cualquier otro manejo de errores que prefieras
     }
     
 
     // Actualizar un médico existente
-    public Medicos update(UUID uuid, Medicos medicDetalles) {
-        Medicos medico = findByCodigoIdentificacion(uuid);
+    public Medicos update(String id, Medicos medicDetalles) {
+        Medicos medico = findByCodigoIdentificacion(id);
 
         medico.setMedicNumeroColegiado(medicDetalles.getMedicNumeroColegiado());
         medico.setMedicEspecialidad(medicDetalles.getMedicEspecialidad());
@@ -70,7 +59,7 @@ public class MedicosServicios {
     }
     
     // Eliminar un médico
-    public void deleteById(UUID id) {
+    public void deleteById(String id) {
         Medicos existeMedico = findByCodigoIdentificacion(id);
         medicosRepositorio.delete(existeMedico);
     }

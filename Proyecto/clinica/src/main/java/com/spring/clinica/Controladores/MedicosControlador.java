@@ -31,9 +31,9 @@ public class MedicosControlador {
     
     /*Crear médico con fecha automática*/
 @PostMapping("/crear")
-public String crearMedico(@ModelAttribute Medicos medico, @RequestParam String usuarios) {
-    UUID codigoIdentificacion = UUID.fromString(usuarios);
-    
+public String crearMedico(@ModelAttribute Medicos medico, @RequestParam String usuarCodigoIdentificacion) {
+    String codigoIdentificacion = (usuarCodigoIdentificacion);
+    System.out.println("El código del usuario que queremos hacer medico es: "+codigoIdentificacion);
     // Asigna el usuario al médico y establece la hora de creación
     medico.setCodigoIdentificacion(codigoIdentificacion);
 
@@ -65,7 +65,7 @@ public String crearMedico(@ModelAttribute Medicos medico, @RequestParam String u
 
     // Obtener un médico por ID (GET)
     @GetMapping("/{id}")
-    public ResponseEntity<Medicos> getcodigoIdentificacion(@PathVariable UUID id) {
+    public ResponseEntity<Medicos> getcodigoIdentificacion(@PathVariable String id) {
         Medicos medico = medicosServicios.findByCodigoIdentificacion(id);
         return new ResponseEntity<>(medico, HttpStatus.OK);
     }
@@ -79,7 +79,7 @@ public String crearMedico(@ModelAttribute Medicos medico, @RequestParam String u
 
     //Obtener médico para editar en html
     @GetMapping("/detalle/{id}")
-    public String verMedicoDetalle(@PathVariable UUID id, Model model, HttpSession session) {
+    public String verMedicoDetalle(@PathVariable String id, Model model, HttpSession session) {
         Medicos medico = medicosServicios.findByCodigoIdentificacion(id);
         model.addAttribute("medico", medico);
         session.setAttribute("medic_creado_dia", medico.getMedicCreado());
@@ -105,7 +105,7 @@ public String crearMedico(@ModelAttribute Medicos medico, @RequestParam String u
 
     // Eliminar un médico por ID (DELETE)
     @PostMapping("/eliminar/{id}")
-    public String eliminarMedico(@PathVariable UUID id){
+    public String eliminarMedico(@PathVariable String id){
         medicosServicios.deleteById(id);
         return "redirect:/medicos/listado-medicos";
     }

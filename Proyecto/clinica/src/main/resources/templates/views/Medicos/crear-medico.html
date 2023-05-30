@@ -10,8 +10,8 @@
             <div class="row ml-2 mr-2">
                 <!-- Código Identificación de usuario -->
                 <div class="col-md-6 col-lg-4 mb-3">
-                    <label for="usuarios">Usuarios:</label>
-                    <select class="form-control" id="usuarios" name="usuarios">
+                    <label for="usuarCodigoIdentificacion">Usuario:</label>
+                    <select class="form-control" id="usuarCodigoIdentificacion" name="usuarCodigoIdentificacion">
                         <option th:each="usuario : ${usuarios}" th:value="${usuario.usuarCodigoIdentificacion.toString()}" th:text="${usuario.usuarApellidos + ', ' + usuario.usuarNombre + ' - ' + usuario.usuarDni}"></option>
                     </select>
                 </div>

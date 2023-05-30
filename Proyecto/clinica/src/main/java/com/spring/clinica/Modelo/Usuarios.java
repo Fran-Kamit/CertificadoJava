@@ -2,7 +2,6 @@ package com.spring.clinica.Modelo;
 
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -89,9 +88,6 @@ public class Usuarios {
 
     @OneToMany(mappedBy = "usuarios", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Ingresos> ingresos = new ArrayList<>();
-
-    @OneToOne(mappedBy = "usuarios", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Medicos medicos;
 
     //Constructores
     public Usuarios() {
@@ -281,14 +277,6 @@ public class Usuarios {
         this.ingresos = ingresos;
     }
 
-    public Medicos getMedicos() {
-        return medicos;
-    }
-
-    public void setMedicos(Medicos medicos) {
-        this.medicos = medicos;
-    }
-
     //toString
     @Override
     public String toString() {
@@ -299,6 +287,6 @@ public class Usuarios {
                 + usuarProvincia + ", usuarPais=" + usuarPais + ", usuarCodigoPostal=" + usuarCodigoPostal
                 + ", usuarTelefono=" + usuarTelefono + ", usuarEmail=" + usuarEmail + ", usuarConsentimientoDatos="
                 + usuarConsentimientoDatos + ", usuarCreado=" + usuarCreado + ", usuarModificado=" + usuarModificado 
-                + ", ingresos=" + ingresos + ", medicos=" + medicos + "]";
+                + ", ingresos=" + ingresos + "]";
     }
 }
