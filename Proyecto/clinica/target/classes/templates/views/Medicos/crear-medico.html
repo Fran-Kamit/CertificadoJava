@@ -17,13 +17,13 @@
                 </div>
                 <!--Nombre-->
                 <div class="col-md-6 col-lg-4 mb-3">
-                    <label for="nombreUsuario">Nombre:</label>
-                    <input type="text" class="form-control" th:field="*{medicEspecialidad}" id="medicEspecialidad" name="medicEspecialidad"/>
+                    <label for="usuarNombre">Nombre:</label>
+                    <input type="text" class="form-control" id="usuarNombre" name="usuarNombre" readonly>
                 </div>
                 <!--Apellidos-->
                 <div class="col-md-6 col-lg-4 mb-3">
-                    <label for="apellidosUsuario">Apellidos:</label>
-                    <input type="text" class="form-control" th:field="*{medicEspecialidad}" id="medicEspecialidad" name="medicEspecialidad"/>
+                    <label for="usuarApellidos">Apellidos:</label>
+                    <input type="text" class="form-control" id="usuarApellidos" name="usuarApellidos" readonly>
                 </div>
                 <!--Número Colegiado-->
                 <div class="col-md-6 col-lg-4 mb-3">
@@ -55,5 +55,21 @@
                 </div>
             </div>
         </form>
+        <script>
+            const codigoIdentificacionSelect = document.getElementById('usuarCodigoIdentificacion');
+            const nombreInput = document.getElementById('usuarNombre');
+            const apellidosInput = document.getElementById('usuarApellidos');
+
+            codigoIdentificacionSelect.addEventListener('change', () => {
+                const selectedOption = codigoIdentificacionSelect.options[codigoIdentificacionSelect.selectedIndex];
+                const usuarioData = selectedOption.text.split(' - ');
+
+                const nombre = usuarioData[0].split(', ')[1];
+                const apellidos = usuarioData[0].split(', ')[0];
+
+                nombreInput.value = nombre;
+                apellidosInput.value = apellidos;
+            });
+        </script>
     </body>
 </html>

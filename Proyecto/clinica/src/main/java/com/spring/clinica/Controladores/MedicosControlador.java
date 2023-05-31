@@ -30,12 +30,21 @@ public class MedicosControlador {
     
     /*Crear médico con fecha automática*/
     @PostMapping("/crear")
-    public String crearMedico(@ModelAttribute Medicos medico, @RequestParam String usuarCodigoIdentificacion, @RequestParam String nombreUsuario, @RequestParam String apellidosUsuario) {
-        String codigoIdentificacion = (usuarCodigoIdentificacion);
-        medico.setCodigoIdentificacion(codigoIdentificacion);
-        String nombre = (nombreUsuario);
+    public String crearMedico(@ModelAttribute Medicos medico, @RequestParam("usuarCodigoIdentificacion") String usuarCodigoIdentificacion, Model model) {
+        medico.setCodigoIdentificacion(usuarCodigoIdentificacion);
+        String nombre = "";
+        String apellidos = "";
+    
+        // Buscar el usuario seleccionado por su código de identificación
+        for (Usuarios usuario : usuariosServicios.findAll()) {
+            if (usuario.getUsuarCodigoIdentificacion().toString().equals(usuarCodigoIdentificacion)) {
+                nombre = usuario.getUsuarNombre();
+                apellidos = usuario.getUsuarApellidos();
+                break;
+            }
+        }
+    
         medico.setNombreUsuario(nombre);
-        String apellidos = (apellidosUsuario);
         medico.setApellidoUsuario(apellidos);
 
         // Asigna y establece la hora de creación

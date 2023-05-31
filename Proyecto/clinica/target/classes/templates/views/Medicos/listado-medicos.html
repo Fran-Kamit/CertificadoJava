@@ -29,6 +29,8 @@
           <tbody>
             <tr th:each="medicos : ${medicos}">
               <td th:text="${medicos.codigoIdentificacion}"></td>
+              <td th:text="${medicos.nombreUsuario}"></td>
+              <td th:text="${medicos.apellidoUsuario}"></td>
               <td th:text="${medicos.medicNumeroColegiado}"></td>
               <td th:text="${medicos.medicEspecialidad}"></td>
               <td th:text="${medicos.medicCargo}"></td>
