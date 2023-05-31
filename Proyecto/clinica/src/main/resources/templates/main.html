@@ -9,26 +9,46 @@
             background-position: center;
         }
     </style>
-<body>
-    <!-- Fragmento de la barra de navegación -->
-    <div th:replace="fragments/navbar :: navbar"></div>
-    <div class="jumbotron jumbotron-fluid">
-        <div class="container">
-            <h1 class="text-center">Bienvenido a nuestra Clínica</h1>
-            <p class="text-center">Somos expertos en la salud.</p>
-        </div>
-    </div>
-
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col-12">
-                <h2>¡Bienvenido!</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed convallis ex eget diam fringilla tempus. Morbi feugiat elit vel tellus ultrices, nec semper erat ultricies. Donec sodales justo in arcu bibendum, et cursus quam tristique.</p>
+    <body>
+        <!-- Fragmento de la barra de navegación -->
+        <div th:replace="fragments/navbar :: navbar"></div>
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+                <h1 class="text-center">Bienvenido a nuestra Clínica</h1>
+                <p class="text-center">Somos expertos en la salud.</p>
             </div>
         </div>
-    </div>
+
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-12">
+                    <h2>¡Bienvenido!</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed convallis ex eget diam fringilla tempus. Morbi feugiat elit vel tellus ultrices, nec semper erat ultricies. Donec sodales justo in arcu bibendum, et cursus quam tristique.</p>
+                </div>
+            </div>
+        </div>
     
-    <!-- Incluir el fragmento del footer -->
-    <div th:replace="fragments/footer :: footer"></div>
-</body>
+        <!-- Incluir el fragmento del footer -->
+        <div th:replace="fragments/footer :: footer"></div>
+
+        <!--Iluminar letras navbar-->
+        <script>
+            // Obtener la URL actual
+            var currentUrl = window.location.pathname;
+      
+            // Obtener todos los elementos de navegación
+            var navItems = document.getElementsByClassName('nav-item');
+      
+            // Iterar sobre los elementos de navegación y agregar la clase "active" al elemento correspondiente a la página actual
+            for (var i = 0; i < navItems.length; i++) {
+                var navLink = navItems[i].querySelector('.nav-link');
+                var href = navLink.getAttribute('href');
+        
+                // Comparar la URL actual con el atributo "href" del elemento de navegación
+                if (currentUrl === href || currentUrl.includes(href)) {
+                    navItems[i].classList.add('active');
+                }
+            }
+        </script>
+    </body>
 </html>

@@ -62,5 +62,24 @@
         </table>
       </div>
     </div>
+    <!--Iluminar letras navbar-->
+    <script>
+      // Obtener la URL actual
+      var currentUrl = window.location.pathname;
+    
+      // Obtener todos los elementos de navegación
+      var navItems = document.getElementsByClassName('nav-item');
+    
+      // Iterar sobre los elementos de navegación y agregar la clase "active" al elemento correspondiente a la página actual
+      for (var i = 0; i < navItems.length; i++) {
+          var navLink = navItems[i].querySelector('.nav-link');
+          var href = navLink.getAttribute('href');
+      
+          // Comparar la URL actual con el atributo "href" del elemento de navegación
+          if (currentUrl === href || currentUrl.includes(href)) {
+              navItems[i].classList.add('active');
+          }
+      }
+    </script>
   </body>
 </html>

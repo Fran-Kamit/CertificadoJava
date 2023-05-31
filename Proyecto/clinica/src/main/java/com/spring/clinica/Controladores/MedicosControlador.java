@@ -102,11 +102,27 @@ public class MedicosControlador {
     /* Se actualiza poniendo la hora de forma automática*/
     // Actualizar un médico (POST)
     @PostMapping("/actualizar/{id}")
-    public String actualizarMedico(@ModelAttribute("medico") Medicos medico, @PathVariable String id, BindingResult result, HttpSession session) {
+    public String actualizarMedico(@ModelAttribute("medico") Medicos medico, @RequestParam("usuarCodigoIdentificacion") String usuarCodigoIdentificacion,@PathVariable String id, BindingResult result, HttpSession session) {
         if (result.hasErrors()) {
             // Manejar errores de validación aquí
             return "views/Medicos/detalle-medico";
         }
+
+        String nombre = "";
+        String apellidos = "";
+    
+        // Buscar el usuario seleccionado por su código de identificación
+        for (Usuarios usuario : usuariosServicios.findAll()) {
+            if (usuario.getUsuarCodigoIdentificacion().toString().equals(usuarCodigoIdentificacion)) {
+                nombre = usuario.getUsuarNombre();
+                apellidos = usuario.getUsuarApellidos();
+                break;
+            }
+        }
+    
+        medico.setNombreUsuario(nombre);
+        medico.setApellidoUsuario(apellidos);
+
         LocalDateTime currentDateTime = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
         medico.setMedicModificado(currentDateTime);
         medico.setCodigoIdentificacion(id);

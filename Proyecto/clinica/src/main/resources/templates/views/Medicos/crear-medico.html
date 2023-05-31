@@ -9,50 +9,35 @@
         <form th:action="@{/medicos/crear}" th:object="${medico}" method="post">
             <div class="row ml-2 mr-2">
                 <!-- Código Identificación de usuario -->
-                <div class="col-md-6 col-lg-4 mb-3">
+                <div class="col-md-6 mb-3">
                     <label for="usuarCodigoIdentificacion">Usuario:</label>
                     <select class="form-control" id="usuarCodigoIdentificacion" name="usuarCodigoIdentificacion">
                         <option th:each="usuario : ${usuarios}" th:value="${usuario.usuarCodigoIdentificacion.toString()}" th:text="${usuario.usuarApellidos + ', ' + usuario.usuarNombre + ' - ' + usuario.usuarDni}"></option>
                     </select>
                 </div>
-                <!--Nombre-->
-                <div class="col-md-6 col-lg-4 mb-3">
-                    <label for="usuarNombre">Nombre:</label>
-                    <input type="text" class="form-control" id="usuarNombre" name="usuarNombre" readonly>
-                </div>
-                <!--Apellidos-->
-                <div class="col-md-6 col-lg-4 mb-3">
-                    <label for="usuarApellidos">Apellidos:</label>
-                    <input type="text" class="form-control" id="usuarApellidos" name="usuarApellidos" readonly>
-                </div>
+                <!--Nombre (oculto)-->
+                <input type="hidden" id="usuarNombre" name="usuarNombre">
+                <!--Apellidos (oculto)-->
+                <input type="hidden" id="usuarApellidos" name="usuarApellidos">
                 <!--Número Colegiado-->
-                <div class="col-md-6 col-lg-4 mb-3">
+                <div class="col-md-6 mb-3">
                     <label for="medicNumeroColegiado">Número de colegiado:*</label>
                     <input type="number" class="form-control" th:field="*{medicNumeroColegiado}" id="medicNumeroColegiado" name="medicNumeroColegiado" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="9"  required />
                 </div>
                 <!--Especialidad-->
-                <div class="col-md-6 col-lg-4 mb-3">
+                <div class="col-md-6 mb-3">
                     <label for="medicEspecialidad">Especialidad:</label>
                     <input type="text" class="form-control" th:field="*{medicEspecialidad}" id="medicEspecialidad" name="medicEspecialidad"/>
                 </div>
                 <!--Cargo-->
-                <div class="col-md-6 col-lg-4 mb-3">
+                <div class="col-md-6 mb-3">
                     <label for="medicCargo">Cargo:</label>
                     <input type="text" class="form-control" th:field="*{medicCargo}" id="medicCargo" name="medicCargo"/>
                 </div>
-                <div class="col-md-6 col-lg-4 mb-3">
-                </div>
-                <div class="col-md-6 col-lg-4 mb-3">
-                </div>
-                <div class="col-md-6 col-lg-4 mb-3">
-                </div>
-                <div class="col-md-6 col-lg-4 mb-3">
-                </div>
-
-                <div class="col-md-6 col-lg-4 mb-3 text-center"><br/>
-                    <button type="submit" class="btn btn-primary">Añadir</button>
-                    <button type="button" class="btn btn-secondary" onclick="location.href='/medicos/listado-medicos'">Cancelar</button>
-                </div>
+            </div>
+            <div class="text-center"><br/>
+                <button type="submit" class="btn btn-primary">Añadir</button>
+                <button type="button" class="btn btn-secondary" onclick="location.href='/medicos/listado-medicos'">Cancelar</button>
             </div>
         </form>
         <script>
@@ -61,11 +46,11 @@
             const apellidosInput = document.getElementById('usuarApellidos');
 
             codigoIdentificacionSelect.addEventListener('change', () => {
-                const selectedOption = codigoIdentificacionSelect.options[codigoIdentificacionSelect.selectedIndex];
-                const usuarioData = selectedOption.text.split(' - ');
+                const opcionSelec = codigoIdentificacionSelect.options[codigoIdentificacionSelect.selectedIndex];
+                const usuarioMemoria = opcionSelec.text.split(' - ');
 
-                const nombre = usuarioData[0].split(', ')[1];
-                const apellidos = usuarioData[0].split(', ')[0];
+                const nombre = usuarioMemoria[0].split(', ')[1];
+                const apellidos = usuarioMemoria[0].split(', ')[0];
 
                 nombreInput.value = nombre;
                 apellidosInput.value = apellidos;
