@@ -30,6 +30,7 @@ public class UsuariosControlador {
     /* Se crea poniendo la hora de forma automática*/
     @PostMapping("/crear")
     public String crearUsuario(@ModelAttribute Usuarios usuario) { 
+        // Asigna y establece la hora de creación
         LocalDateTime currentDateTime = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
         usuario.setUsuarCreado(currentDateTime);
         usuariosServicios.save(usuario);

@@ -17,7 +17,7 @@
             <tr>
               <th>Número ingreso</th>
               <th>DNI del paciente</th>
-              <th>DNI del médico</th>
+              <th>Nº colegiado del médico</th>
               <th>Fecha ingreso</th>
               <th>Fecha alta</th>
               <th>Número planta</th>
@@ -36,10 +36,16 @@
             <tr th:each="ingresos : ${ingresos}">
               <td th:text="${ingresos.idNumeroIngreso}"></td>
               <td th:text="${ingresos.usuarios.usuarDni}"></td>
-              <td th:text="${medicos.apellidoUsuario}"></td>
-              <td th:text="${medicos.medicNumeroColegiado}"></td>
-              <td th:text="${medicos.medicEspecialidad}"></td>
-              <td th:text="${medicos.medicCargo}"></td>
+              <td th:text="${ingresos.medicos.medicNumeroColegiado}"></td>
+              <td th:text="${ingresos.fechaIngreso}"></td>
+              <td th:text="${ingresos.fechaAlta}"></td>
+              <td th:text="${ingresos.numeroPlanta}"></td>
+              <td th:text="${ingresos.numeroHabitacion}"></td>
+              <td th:text="${ingresos.numeroCama}"></td>
+              <td th:text="${ingresos.alergias}"></td>
+              <td th:text="${ingresos.observaciones}"></td>
+              <td th:text="${ingresos.coste}"></td>
+              <td th:text="${ingresos.diagnostico}"></td>
               <td class="d-none d-md-table-cell" th:text="${ingresos.ingresoCreado}"></td>
               <td class="d-none d-md-table-cell" th:text="${ingresos.ingresoModificado}"></td>
 

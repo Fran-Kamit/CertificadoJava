@@ -19,9 +19,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.UUID;
 
 import javax.validation.Valid;
 
@@ -31,35 +32,42 @@ public class IngresosControlador {
 
     @Autowired
     private IngresosServicios ingresosServicios;
-    
     @Autowired
     private UsuariosServicios usuariosServicios;
-
     @Autowired
     private MedicosServicios medicosServicios;
+
+    @PostMapping("/crear")
+    public String crearIngreso(@ModelAttribute Ingresos ingreso, Model model){
+        // Asigna y establece la hora de creación
+        LocalDateTime currentDateTime = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
+        ingreso.setIngresoCreado(currentDateTime);
+
+        // Guarda el médico en la base de datos
+        ingresosServicios.save(ingreso);
+
+        return "redirect:/ingresos/listado-ingresos";
+    }
+    
+
+    //añadir ingreso
+    @GetMapping("/crear-ingreso")
+    public String createIngreso(Model model) {
+         
+        List<Usuarios> usuarios = usuariosServicios.findAll();
+        List<Medicos> medicos = medicosServicios.findAll();
+
+
+        model.addAttribute("usuarios", usuarios);
+        model.addAttribute("medicos", medicos);
+        model.addAttribute("ingreso", new Ingresos());
+        
+        return "views/Ingresos/crear-ingreso";
+    }
 
     @PostMapping("/ingreso")
     public String createIngreso(@ModelAttribute Ingresos ingreso) {
         ingresosServicios.save(ingreso);
-        return "redirect:/ingresos/listado-ingresos";
-    }
-
-    //añadir ingreso
-    @PostMapping("/ingresos/crear")
-    public String createIngreso(@Valid @ModelAttribute Ingresos ingresos, BindingResult result) {
-        if (result.hasErrors()) {
-            return "error";
-        }
-        
-        UUID usuarioId = ingresos.getUsuarios().getUsuarCodigoIdentificacion();
-        Usuarios usuario = usuariosServicios.findByusuarCodigoIdentificacion(usuarioId);
-        
-        if (usuario == null) {
-            return "error";
-        }
-    
-        ingresos.setUsuarios(usuario);
-        ingresosServicios.save(ingresos);
         return "redirect:/ingresos/listado-ingresos";
     }
 
