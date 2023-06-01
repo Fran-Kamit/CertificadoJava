@@ -6,17 +6,17 @@
         <div th:replace="fragments/navbar :: navbar"></div>
         <div class="container"><h1>Editar médico</h1></div>
 
-        <!--Formulario para eliminar usuario-->
+        <!--Formulario para eliminar médico-->
         <div class="text-right mr-4">
                 <form th:action="@{/medicos/eliminar/{id}(id=${medico.codigoIdentificacion})}" method="post">
                     <input type="hidden" name="_method" value="delete" />
-                    <button type="submit" class="btn btn-danger" onclick="location.href='/medicos/listado-medicos'">Eliminar Usuario</button>
+                    <button type="submit" class="btn btn-danger" onclick="location.href='/medicos/listado-medicos'">Eliminar médico</button>
                 </form> 
         </div>
-        <!--Formulario para editar usuario-->
+        <!--Formulario para editar médico-->
         <form th:action="@{/medicos/actualizar/{id}(id=${medico.codigoIdentificacion})}" th:object="${medico}" method="post">
             <div class="row ml-2 mr-2">
-                <!-- Código Identificación de usuario -->
+                <!-- Código Identificación de médico-->
                 <input type="hidden" th:value="${medico.codigoIdentificacion}" name="usuarCodigoIdentificacion" />
                 <!--Nombre (oculto)-->
                 <input type="hidden" id="usuarNombre" name="usuarNombre">

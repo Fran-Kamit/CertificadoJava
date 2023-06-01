@@ -1,4 +1,3 @@
-
     create table ingresos (
        numero_ingreso bigint not null auto_increment,
         alergias varchar(255),
