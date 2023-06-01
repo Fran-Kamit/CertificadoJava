@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+  <head th:replace="fragments/header :: header">
+  </head>
+  <body>
+    <div th:replace="fragments/navbar :: navbar"></div>
+    <div class="container">
+      <h1>Listado de ingresos</h1>
+      <a th:href="@{/ingresos/crear-ingreso}" class="btn btn-primary">Añadir Ingreso</a>
+      <button type="button" class="btn btn-primary my-3" onclick="location.href='/inicio'">Volver a Inicio<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 18"><path fill-rule="evenodd" d="M8 3.293l5.5 5.5a.5.5 0 0 1-.707.707L8 4.707 2.707 10.5a.5.5 0 1 1-.707-.707L8 3.293z"/><path fill-rule="evenodd" d="M7.5 10.5V14h1v-3.5a.5.5 0 0 1 1 0V14h1v-3.5a2 2 0 0 0-2-2h-1a2 2 0 0 0-2 2V14h1v-3.5a.5.5 0 0 1 1 0z"/></svg></button>
+    </div> 
+    <!-- tabla de Ingresos-->
+    <div class="row ml-2 mr-2">
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead class="thead-dark text-center">
+            <tr>
+              <th>Número ingreso</th>
+              <th>DNI del paciente</th>
+              <th>DNI del médico</th>
+              <th>Fecha ingreso</th>
+              <th>Fecha alta</th>
+              <th>Número planta</th>
+              <th>Número habitación</th>
+              <th>Número Cama</th>
+              <th>Alergias</th>
+              <th>Observaciones</th>
+              <th>Coste</th>
+              <th>Diagnóstico</th>
+              <th class="d-none d-md-table-cell">Fecha creación</th>
+              <th class="d-none d-md-table-cell">Fecha modificación</th>         
+              <th>Acción</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="ingresos : ${ingresos}">
+              <td th:text="${ingresos.idNumeroIngreso}"></td>
+              <td th:text="${ingresos.usuarios.usuarDni}"></td>
+              <td th:text="${medicos.apellidoUsuario}"></td>
+              <td th:text="${medicos.medicNumeroColegiado}"></td>
+              <td th:text="${medicos.medicEspecialidad}"></td>
+              <td th:text="${medicos.medicCargo}"></td>
+              <td class="d-none d-md-table-cell" th:text="${ingresos.ingresoCreado}"></td>
+              <td class="d-none d-md-table-cell" th:text="${ingresos.ingresoModificado}"></td>
+
+              <!--Botón editar-->
+              <td>
+                <a th:href="@{/medicos/detalle/{id}(id=${medicos.codigoIdentificacion})}" class="btn btn-primary">Editar</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!--Iluminar letras navbar-->
+    <script>
+      // Obtener la URL actual
+      var currentUrl = window.location.pathname;
+    
+      // Obtener todos los elementos de navegación
+      var navItems = document.getElementsByClassName('nav-item');
+    
+      // Iterar sobre los elementos de navegación y agregar la clase "active" al elemento correspondiente a la página actual
+      for (var i = 0; i < navItems.length; i++) {
+          var navLink = navItems[i].querySelector('.nav-link');
+          var href = navLink.getAttribute('href');
+      
+          // Comparar la URL actual con el atributo "href" del elemento de navegación
+          if (currentUrl === href || currentUrl.includes(href)) {
+              navItems[i].classList.add('active');
+          }
+      }
+    </script> 
+  </body>
+</html>

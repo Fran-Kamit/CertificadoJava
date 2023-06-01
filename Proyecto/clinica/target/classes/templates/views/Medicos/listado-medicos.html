@@ -16,8 +16,7 @@
           <thead class="thead-dark text-center">
             <tr>
               <th>ID</th>
-              <th>Nombre</th>
-              <th>Apellidos</th>
+              <th>DNI</th>
               <th>Número de colegiado</th>
               <th>Especialidad</th>
               <th>Cargo</th>
@@ -29,8 +28,7 @@
           <tbody>
             <tr th:each="medicos : ${medicos}">
               <td th:text="${medicos.codigoIdentificacion}"></td>
-              <td th:text="${medicos.nombreUsuario}"></td>
-              <td th:text="${medicos.apellidoUsuario}"></td>
+              <td th:text="${medicos.dniUsuario}"></td>
               <td th:text="${medicos.medicNumeroColegiado}"></td>
               <td th:text="${medicos.medicEspecialidad}"></td>
               <td th:text="${medicos.medicCargo}"></td>

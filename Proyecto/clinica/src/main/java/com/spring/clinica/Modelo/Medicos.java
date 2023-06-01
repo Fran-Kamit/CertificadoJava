@@ -20,11 +20,8 @@ public class Medicos {
     @Column(name = "codigo_identificacion")
     private String codigoIdentificacion;
 
-    @Column(name = "nombreUsuario")
-    private String nombreUsuario;
-
-    @Column(name = "apellidoUsuario")
-    private String apellidoUsuario;
+    @Column(name = "dniUsuario")
+    private String dniUsuario;
 
     @Column(name = "numeroColegiado")
     private int medicNumeroColegiado;
@@ -48,12 +45,11 @@ public class Medicos {
     public Medicos() {
     }
 
-    public Medicos(String codigoIdentificacion, String nombreUsuario, String apellidoUsuario, int medicNumeroColegiado,
+    public Medicos(String codigoIdentificacion, String dniUsuario, int medicNumeroColegiado,
             String medicEspecialidad, String medicCargo, LocalDateTime medicCreado, LocalDateTime medicModificado,
             List<Ingresos> ingresos) {
         this.codigoIdentificacion = codigoIdentificacion;
-        this.nombreUsuario = nombreUsuario;
-        this.apellidoUsuario = apellidoUsuario;
+        this.dniUsuario = dniUsuario;
         this.medicNumeroColegiado = medicNumeroColegiado;
         this.medicEspecialidad = medicEspecialidad;
         this.medicCargo = medicCargo;
@@ -72,20 +68,12 @@ public class Medicos {
         this.codigoIdentificacion = codigoIdentificacion;
     }
 
-    public String getNombreUsuario() {
-        return nombreUsuario;
+    public String getDniUsuario() {
+        return dniUsuario;
     }
 
-    public void setNombreUsuario(String nombreUsuario) {
-        this.nombreUsuario = nombreUsuario;
-    }
-
-    public String getApellidoUsuario() {
-        return apellidoUsuario;
-    }
-
-    public void setApellidoUsuario(String apellidoUsuario) {
-        this.apellidoUsuario = apellidoUsuario;
+    public void setDniUsuario(String nombreUsuario) {
+        this.dniUsuario = nombreUsuario;
     }
 
     public int getMedicNumeroColegiado() {
@@ -138,8 +126,8 @@ public class Medicos {
 
     @Override
     public String toString() {
-        return "Medicos [codigoIdentificacion=" + codigoIdentificacion + ", nombreUsuario=" + nombreUsuario
-                + ", apellidoUsuario=" + apellidoUsuario + ", medicNumeroColegiado=" + medicNumeroColegiado
+        return "Medicos [codigoIdentificacion=" + codigoIdentificacion + ", nombreUsuario=" + dniUsuario
+                + ", medicNumeroColegiado=" + medicNumeroColegiado
                 + ", medicEspecialidad=" + medicEspecialidad + ", medicCargo=" + medicCargo + ", medicCreado="
                 + medicCreado + ", medicModificado=" + medicModificado + ", ingresos=" + ingresos + "]";
     }

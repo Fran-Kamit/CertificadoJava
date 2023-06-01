@@ -1,3 +1,4 @@
+
     create table ingresos (
        numero_ingreso bigint not null auto_increment,
         alergias varchar(255),
@@ -5,6 +6,8 @@
         diagnostico varchar(255),
         fecha_alta date,
         fecha_ingreso date,
+        creado_dia datetime(6),
+        modificado_dia datetime(6),
         numero_cama integer,
         numero_habitacion integer,
         numero_planta integer,
@@ -16,13 +19,12 @@
 
     create table medicos (
        codigo_identificacion varchar(255) not null,
-        apellido_usuario varchar(255),
+        dni_usuario varchar(255),
         cargo varchar(255),
         creado_dia datetime(6),
         especialidad varchar(255),
         modificado_dia datetime(6),
         numero_colegiado integer,
-        nombre_usuario varchar(255),
         primary key (codigo_identificacion)
     ) engine=InnoDB;
 

@@ -63,13 +63,20 @@ public class Ingresos {
     @Column(name = "diagnostico")
     private String diagnostico;
 
+    @Column(name = "creado_dia")
+    private LocalDateTime ingresoCreado;
+
+    @Column(name = "modificado_dia")
+    private LocalDateTime ingresoModificado;
+
     //Contructores
     public Ingresos(){
     }
 
     public Ingresos(Long idNumeroIngreso, Usuarios usuarios, Medicos medicos, LocalDate fechaIngreso,
             LocalDate fechaAlta, int numeroPlanta, int numeroHabitacion, int numeroCama, String alergias,
-            String observaciones, double coste, String diagnostico) {
+            String observaciones, double coste, String diagnostico, LocalDateTime ingresoCreado,
+            LocalDateTime ingresoModificado) {
         this.idNumeroIngreso = idNumeroIngreso;
         this.usuarios = usuarios;
         this.medicos = medicos;
@@ -82,6 +89,8 @@ public class Ingresos {
         this.observaciones = observaciones;
         this.coste = coste;
         this.diagnostico = diagnostico;
+        this.ingresoCreado = ingresoCreado;
+        this.ingresoModificado = ingresoModificado;
     }
 
     @Component
@@ -97,6 +106,7 @@ public class Ingresos {
     }
 
     //Getters y setters
+
     public Long getIdNumeroIngreso() {
         return idNumeroIngreso;
     }
@@ -193,12 +203,29 @@ public class Ingresos {
         this.diagnostico = diagnostico;
     }
 
+    public LocalDateTime getIngresoCreado() {
+        return ingresoCreado;
+    }
+
+    public void setIngresoCreado(LocalDateTime ingresoCreado) {
+        this.ingresoCreado = ingresoCreado;
+    }
+
+    public LocalDateTime getIngresoModificado() {
+        return ingresoModificado;
+    }
+
+    public void setIngresoModificado(LocalDateTime ingresoModificado) {
+        this.ingresoModificado = ingresoModificado;
+    }
+
     //toString
     @Override
     public String toString() {
-        return "Ingresos [idnumeroIngreso=" + idNumeroIngreso + ", usuarios=" + usuarios + ", medicos=" + medicos
+        return "Ingresos [idNumeroIngreso=" + idNumeroIngreso + ", usuarios=" + usuarios + ", medicos=" + medicos
                 + ", fechaIngreso=" + fechaIngreso + ", fechaAlta=" + fechaAlta + ", numeroPlanta=" + numeroPlanta
                 + ", numeroHabitacion=" + numeroHabitacion + ", numeroCama=" + numeroCama + ", alergias=" + alergias
-                + ", observaciones=" + observaciones + ", coste=" + coste + ", diagnostico=" + diagnostico + "]";
-    }
+                + ", observaciones=" + observaciones + ", coste=" + coste + ", diagnostico=" + diagnostico
+                + ", ingresoCreado=" + ingresoCreado + ", ingresoModificado=" + ingresoModificado + "]";
+    }    
 }

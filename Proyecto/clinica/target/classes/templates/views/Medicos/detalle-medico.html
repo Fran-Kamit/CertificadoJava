@@ -17,11 +17,9 @@
         <form th:action="@{/medicos/actualizar/{id}(id=${medico.codigoIdentificacion})}" th:object="${medico}" method="post">
             <div class="row ml-2 mr-2">
                 <!-- Código Identificación de médico-->
-                <input type="hidden" th:value="${medico.codigoIdentificacion}" name="usuarCodigoIdentificacion" />
-                <!--Nombre (oculto)-->
-                <input type="hidden" id="usuarNombre" name="usuarNombre">
-                <!--Apellidos (oculto)-->
-                <input type="hidden" id="usuarApellidos" name="usuarApellidos">
+                <input type="hidden" th:value="${medico.codigoIdentificacion}" name="usuarCodigoIdentificacion" readonly/>
+                <!--DNI (oculto)-->
+                <input type="hidden" class="form-control" th:field="*{dniUsuario}" id="dniUsuario" name="dniUsuario" readonly/>
                 <!--Número Colegiado-->
                 <div class="col-md-6 col-lg-4 mb-3">
                     <label for="medicNumeroColegiado">Número de colegiado:*</label>
@@ -45,21 +43,5 @@
                 <button type="button" class="btn btn-secondary" onclick="location.href='/medicos/listado-medicos'">Cancelar</button>
             </div>
         </form>
-        <script>
-            const codigoIdentificacionSelect = document.getElementById('usuarCodigoIdentificacion');
-            const nombreInput = document.getElementById('usuarNombre');
-            const apellidosInput = document.getElementById('usuarApellidos');
-
-            codigoIdentificacionSelect.addEventListener('change', () => {
-                const opcionSelec = codigoIdentificacionSelect.options[codigoIdentificacionSelect.selectedIndex];
-                const usuarioMemoria = opcionSelec.text.split(' - ');
-
-                const nombre = usuarioMemoria[0].split(', ')[1];
-                const apellidos = usuarioMemoria[0].split(', ')[0];
-
-                nombreInput.value = nombre;
-                apellidosInput.value = apellidos;
-            });
-        </script>
     </body>
 </html>

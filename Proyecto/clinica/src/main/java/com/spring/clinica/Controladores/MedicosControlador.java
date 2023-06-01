@@ -32,20 +32,17 @@ public class MedicosControlador {
     @PostMapping("/crear")
     public String crearMedico(@ModelAttribute Medicos medico, @RequestParam("usuarCodigoIdentificacion") String usuarCodigoIdentificacion, Model model) {
         medico.setCodigoIdentificacion(usuarCodigoIdentificacion);
-        String nombre = "";
-        String apellidos = "";
+        String dni = "";
     
         // Buscar el usuario seleccionado por su código de identificación
         for (Usuarios usuario : usuariosServicios.findAll()) {
             if (usuario.getUsuarCodigoIdentificacion().toString().equals(usuarCodigoIdentificacion)) {
-                nombre = usuario.getUsuarNombre();
-                apellidos = usuario.getUsuarApellidos();
+                dni = usuario.getUsuarDni();
                 break;
             }
         }
     
-        medico.setNombreUsuario(nombre);
-        medico.setApellidoUsuario(apellidos);
+        medico.setDniUsuario(dni);
 
         // Asigna y establece la hora de creación
         LocalDateTime currentDateTime = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
@@ -84,7 +81,7 @@ public class MedicosControlador {
     }
 
     // Obtener médico por numeroColegiado (GET)
-    @GetMapping("/numero-colegiado")
+    @GetMapping("/numero-colegiado/{medicNumeroColegiado}")
     public ResponseEntity<Medicos> getMedicNumeroColegiado(@RequestParam int medicNumeroColegiado) {
         Medicos medico = medicosServicios.findBymedicNumeroColegiado(medicNumeroColegiado);
         return new ResponseEntity<>(medico, HttpStatus.OK);
@@ -107,22 +104,6 @@ public class MedicosControlador {
             // Manejar errores de validación aquí
             return "views/Medicos/detalle-medico";
         }
-
-        String nombre = "";
-        String apellidos = "";
-    
-        // Buscar el usuario seleccionado por su código de identificación
-        for (Usuarios usuario : usuariosServicios.findAll()) {
-            if (usuario.getUsuarCodigoIdentificacion().toString().equals(usuarCodigoIdentificacion)) {
-                nombre = usuario.getUsuarNombre();
-                apellidos = usuario.getUsuarApellidos();
-                break;
-            }
-        }
-    
-        medico.setNombreUsuario(nombre);
-        medico.setApellidoUsuario(apellidos);
-
         LocalDateTime currentDateTime = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
         medico.setMedicModificado(currentDateTime);
         medico.setCodigoIdentificacion(id);

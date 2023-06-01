@@ -84,9 +84,54 @@
                 </div>
             </div>
             <div class="text-center"><br/>
-                <button type="submit" class="btn btn-primary">Añadir</button>
+                <button type="submit" class="btn btn-primary" id="botonGuardar" disabled>Añadir</button>
                 <button type="button" class="btn btn-secondary" onclick="location.href='/usuarios/listado-usuarios'">Cancelar</button>
             </div>
         </form>
+        
+        <script>
+            //Validar el DNI
+            function validarDni(dni) {
+                const regex = /^\d{8}[a-zA-Z]$/;
+                const letters = "TRWAGMYFPDXBNJZSQVHLCKE";
+    
+                if (regex.test(dni)) {
+                    const number = parseInt(dni.slice(0, 8), 10);
+                    const letter = dni.slice(-1).toUpperCase();
+                    return letters[number % 23] === letter;
+                }
+    
+                return false;
+            }
+
+            //Validar la caja del input DNI
+            document.getElementById("usuarDni").addEventListener("input", function (event) {
+                const dni = event.target.value;
+    
+                if (validarDni(dni)) {
+                    event.target.classList.add("is-valid");
+                    event.target.classList.remove("is-invalid");
+                } else {
+                    event.target.classList.add("is-invalid");
+                    event.target.classList.remove("is-valid");
+                }
+    
+                enableSaveButton();
+            });
+
+            //Script para habilitar el botón de guardar si se cumplen condiciones
+            function enableSaveButton() {
+                const dni = document.getElementById("usuarDni");
+                const saveButton = document.getElementById("botonGuardar");
+
+                if (
+                    dni.classList.contains("is-valid")
+                ) {
+                    saveButton.disabled = false;
+                } else {
+                    saveButton.disabled = true;
+                }
+            }
+        </script>
     </body>
 </html>

@@ -12,13 +12,12 @@
                 <div class="col-md-6 mb-3">
                     <label for="usuarCodigoIdentificacion">Usuario:</label>
                     <select class="form-control" id="usuarCodigoIdentificacion" name="usuarCodigoIdentificacion">
-                        <option th:each="usuario : ${usuarios}" th:value="${usuario.usuarCodigoIdentificacion.toString()}" th:text="${usuario.usuarApellidos + ', ' + usuario.usuarNombre + ' - ' + usuario.usuarDni}"></option>
+                        <option th:each="usuario : ${usuarios}" th:value="${usuario.usuarCodigoIdentificacion.toString()}" th:text="${usuario.usuarApellidos + ', ' + usuario.usuarNombre + ' - ' + usuario.usuarDni}"
+                        th:data-dni="${usuario.usuarDni}"></option>
                     </select>
                 </div>
-                <!--Nombre (oculto)-->
-                <input type="hidden" id="usuarNombre" name="usuarNombre">
-                <!--Apellidos (oculto)-->
-                <input type="hidden" id="usuarApellidos" name="usuarApellidos">
+                <!--DNI (oculto)-->
+                <input type="hidden" id="dniUsuario" name="dniUsuario">
                 <!--Número Colegiado-->
                 <div class="col-md-6 mb-3">
                     <label for="medicNumeroColegiado">Número de colegiado:*</label>
@@ -42,18 +41,12 @@
         </form>
         <script>
             const codigoIdentificacionSelect = document.getElementById('usuarCodigoIdentificacion');
-            const nombreInput = document.getElementById('usuarNombre');
-            const apellidosInput = document.getElementById('usuarApellidos');
+            const dniInput = document.getElementById('usuarDni');
 
             codigoIdentificacionSelect.addEventListener('change', () => {
                 const opcionSelec = codigoIdentificacionSelect.options[codigoIdentificacionSelect.selectedIndex];
-                const usuarioMemoria = opcionSelec.text.split(' - ');
-
-                const nombre = usuarioMemoria[0].split(', ')[1];
-                const apellidos = usuarioMemoria[0].split(', ')[0];
-
-                nombreInput.value = nombre;
-                apellidosInput.value = apellidos;
+                const dni = opcionSelec.getAttribute('data-dni');
+                dniInput.value = dni;
             });
         </script>
     </body>
