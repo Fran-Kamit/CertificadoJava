@@ -82,7 +82,7 @@ public class MedicosControlador {
 
     // Obtener médico por numeroColegiado (GET)
     @GetMapping("/numero-colegiado/{medicNumeroColegiado}")
-    public ResponseEntity<Medicos> getMedicNumeroColegiado(@RequestParam int medicNumeroColegiado) {
+    public ResponseEntity<Medicos> getMedicNumeroColegiado(@RequestParam String medicNumeroColegiado) {
         Medicos medico = medicosServicios.findBymedicNumeroColegiado(medicNumeroColegiado);
         return new ResponseEntity<>(medico, HttpStatus.OK);
     }

@@ -23,7 +23,7 @@
                 <!--Número Colegiado-->
                 <div class="col-md-6 col-lg-4 mb-3">
                     <label for="medicNumeroColegiado">Número de colegiado:*</label>
-                    <input type="number" class="form-control" th:field="*{medicNumeroColegiado}" id="medicNumeroColegiado" name="medicNumeroColegiado" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="9"  required />
+                    <input type="text" class="form-control" th:field="*{medicNumeroColegiado}" id="medicNumeroColegiado" name="medicNumeroColegiado" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="9"  readonly/>
                 </div>
                 <!--Especialidad-->
                 <div class="col-md-6 col-lg-4 mb-3">

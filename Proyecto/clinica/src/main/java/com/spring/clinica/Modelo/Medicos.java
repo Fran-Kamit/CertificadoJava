@@ -24,7 +24,7 @@ public class Medicos {
     private String dniUsuario;
 
     @Column(name = "numeroColegiado")
-    private int medicNumeroColegiado;
+    private String medicNumeroColegiado;
 
     @Column(name = "especialidad")
     private String medicEspecialidad;
@@ -45,7 +45,7 @@ public class Medicos {
     public Medicos() {
     }
 
-    public Medicos(String codigoIdentificacion, String dniUsuario, int medicNumeroColegiado,
+    public Medicos(String codigoIdentificacion, String dniUsuario, String medicNumeroColegiado,
             String medicEspecialidad, String medicCargo, LocalDateTime medicCreado, LocalDateTime medicModificado,
             List<Ingresos> ingresos) {
         this.codigoIdentificacion = codigoIdentificacion;
@@ -76,11 +76,11 @@ public class Medicos {
         this.dniUsuario = nombreUsuario;
     }
 
-    public int getMedicNumeroColegiado() {
+    public String getMedicNumeroColegiado() {
         return medicNumeroColegiado;
     }
 
-    public void setMedicNumeroColegiado(int medicNumeroColegiado) {
+    public void setMedicNumeroColegiado(String medicNumeroColegiado) {
         this.medicNumeroColegiado = medicNumeroColegiado;
     }
 

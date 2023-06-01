@@ -31,7 +31,7 @@
                 <!--Seg Soc-->
                 <div class="col-md-6 col-lg-4 mb-3">
                     <label for="usuarNumSS">Nº Seguridad Social:*</label>
-                    <input type="number" class="form-control" th:field="*{usuarNumSS}" id="usuarNumSS" name="usuarNumSS" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="12" required/>
+                    <input type="text" class="form-control" th:field="*{usuarNumSS}" id="usuarNumSS" name="usuarNumSS" oninput="validarNumeroSS(this);" maxlength="12" required/>
                 </div>
                 <!--Género-->
                 <div class="col-md-6 col-lg-4 mb-3">
@@ -90,6 +90,25 @@
         </form>
         
         <script>
+            //Script validar email
+            function validarEmail(email) {
+                const regex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
+                return regex.test(email);
+            }
+            document.getElementById("usuarEmail").addEventListener("input", function (event) {
+                const email = event.target.value;
+    
+                if (validarEmail(email)) {
+                    event.target.classList.add("valido");
+                    event.target.classList.remove("no-valido");
+                } else {
+                    event.target.classList.add("no-valido");
+                    event.target.classList.remove("valido");
+                }
+    
+                enableSaveButton();
+            });
+
             //Validar el DNI
             function validarDni(dni) {
                 const regex = /^\d{8}[a-zA-Z]$/;
@@ -109,23 +128,42 @@
                 const dni = event.target.value;
     
                 if (validarDni(dni)) {
-                    event.target.classList.add("is-valid");
-                    event.target.classList.remove("is-invalid");
+                    event.target.classList.add("valido");
+                    event.target.classList.remove("no-valido");
                 } else {
-                    event.target.classList.add("is-invalid");
-                    event.target.classList.remove("is-valid");
+                    event.target.classList.add("no-valido");
+                    event.target.classList.remove("valido");
                 }
     
                 enableSaveButton();
             });
 
-            //Script para habilitar el botón de guardar si se cumplen condiciones
+            // Controlador de eventos 
+            document.getElementById('usuarNumSS').addEventListener('input', enableSaveButton);
+            document.getElementById('usuarCodigoPostal').addEventListener('input', enableSaveButton);
+            document.getElementById('usuarTelefono').addEventListener('input', enableSaveButton);
+
+            // Validar que solo se ingresen números
+            function validarNumeroSS(input) {
+                const re = /^[0-9]*$/;
+
+                if (!re.test(input.value)) {
+                    input.value = input.value.slice(0, -1);
+                }
+
+                enableSaveButton();
+            }
+
+            //Habilitar el botón de guardar
             function enableSaveButton() {
                 const dni = document.getElementById("usuarDni");
+                const email = document.getElementById("usuarEmail");
                 const saveButton = document.getElementById("botonGuardar");
 
                 if (
-                    dni.classList.contains("is-valid")
+                    dni.classList.contains("valido") && (usuarNumSS.value.length === 12) && 
+                    (usuarCodigoPostal.value.length === 5) && (usuarTelefono.value.length === 9) &&
+                    email.classList.contains("valido")
                 ) {
                     saveButton.disabled = false;
                 } else {

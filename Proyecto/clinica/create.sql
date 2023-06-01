@@ -24,7 +24,7 @@
         creado_dia datetime(6),
         especialidad varchar(255),
         modificado_dia datetime(6),
-        numero_colegiado integer,
+        numero_colegiado varchar(255),
         primary key (codigo_identificacion)
     ) engine=InnoDB;
 
@@ -41,7 +41,7 @@
         genero varchar(255),
         modificado_dia datetime(6),
         nombre varchar(255),
-        numss bigint,
+        numss varchar(255),
         pais varchar(255),
         poblacion varchar(255),
         provincia varchar(255),

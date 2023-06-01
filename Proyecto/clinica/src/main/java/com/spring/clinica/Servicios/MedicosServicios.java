@@ -31,7 +31,7 @@ public class MedicosServicios {
     }
 
     // Encontrar un médico por numeroColegiado
-    public Medicos findBymedicNumeroColegiado(int medicNumeroColegiado) {
+    public Medicos findBymedicNumeroColegiado(String medicNumeroColegiado) {
         Optional<Medicos> medico = medicosRepositorio.findByMedicNumeroColegiado(medicNumeroColegiado);
         if (medico.isPresent()) {
             return medico.get();

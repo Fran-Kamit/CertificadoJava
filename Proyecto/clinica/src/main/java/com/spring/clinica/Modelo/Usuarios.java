@@ -37,7 +37,7 @@ public class Usuarios {
     private UUID usuarCodigoIdentificacion; // Declara la variable 'id' de tipo UUID  
 
     @Column(name = "numSS")
-    private long usuarNumSS;
+    private String usuarNumSS;
 
     @Column(name = "dni")
     private String usuarDni;
@@ -93,7 +93,7 @@ public class Usuarios {
     public Usuarios() {
     }
 
-    public Usuarios(UUID usuarCodigoIdentificacion, long usuarNumSS, String usuarDni, String usuarNonmbre, String usuarApellidos,
+    public Usuarios(UUID usuarCodigoIdentificacion, String usuarNumSS, String usuarDni, String usuarNonmbre, String usuarApellidos,
     String usuarGenero, LocalDate usuarFechaNacimiento, String usuarDomicilio, String usuarPoblacion, String usuarProvincia,
     String usuarPais, int usuarCodigoPostal, int usuarTelefono, @Email String usuarEmail, boolean usuarConsentimientoDatos,
     LocalDateTime usuarCreado, LocalDateTime usuarModificado) {
@@ -141,11 +141,11 @@ public class Usuarios {
         this.usuarCodigoIdentificacion = usuarCodigoIdentificacion;
     }
 
-    public long getUsuarNumSS() {
+    public String getUsuarNumSS() {
         return usuarNumSS;
     }
 
-    public void setUsuarNumSS(long usuarNumSS) {
+    public void setUsuarNumSS(String usuarNumSS) {
         this.usuarNumSS = usuarNumSS;
     }
 
