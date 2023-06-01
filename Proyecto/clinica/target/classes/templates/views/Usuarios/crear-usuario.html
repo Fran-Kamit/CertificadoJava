@@ -11,12 +11,12 @@
                 <!--Nombre-->
                 <div class="col-md-6 col-lg-4 mb-3">
                     <label for="usuarNombre">Nombre:*</label>
-                    <input type="text" class="form-control" th:field="*{usuarNombre}" id="usuarNombre" name="usuarNombre" required />
+                    <input type="text" class="form-control" th:field="*{usuarNombre}" id="usuarNombre" name="usuarNombre" oninput="validarLetra(this);" required />
                 </div>
                 <!--Apellidos-->
                 <div class="col-md-6 col-lg-4 mb-3">
                     <label for="usuarApellidos">Apellidos:*</label>
-                    <input type="text" class="form-control" th:field="*{usuarApellidos}" id="usuarApellidos" name="usuarApellidos" required />
+                    <input type="text" class="form-control" th:field="*{usuarApellidos}" id="usuarApellidos" name="usuarApellidos" oninput="validarLetra(this);" required />
                 </div>
                 <!--Email-->
                 <div class="col-md-6 col-lg-4 mb-3">
@@ -90,6 +90,14 @@
         </form>
         
         <script>
+            //Validar que nombre y apellido solo contenga letras
+            function validarLetra(input) {
+                const re = /^[A-Za-zñÑáéíóúÁÉÍÓÚàèò\s]+$/;  // Expresión regular: solo coincide con letras y espacios
+
+                if (!re.test(input.value)) {
+                    input.value = input.value.slice(0, -1);  // Si no es una letra o espacio, elimina el último carácter
+                }
+            }
             //Script validar email
             function validarEmail(email) {
                 const regex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
