@@ -31,7 +31,7 @@ public class Ingresos {
     private Usuarios usuarios;
 
     @ManyToOne
-    @JoinColumn(name = "codigo_identificacion", nullable = false)
+    @JoinColumn(name = "medicos_codigo_identificacion", referencedColumnName = "codigo_identificacion", nullable = false)
     private Medicos medicos;
 
     @Column(name = "fecha_ingreso")

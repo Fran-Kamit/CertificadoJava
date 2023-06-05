@@ -43,7 +43,6 @@ public class IngresosControlador {
         LocalDateTime currentDateTime = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
         ingreso.setIngresoCreado(currentDateTime);
 
-        // Guarda el médico en la base de datos
         ingresosServicios.save(ingreso);
 
         return "redirect:/ingresos/listado-ingresos";
@@ -52,23 +51,16 @@ public class IngresosControlador {
 
     //añadir ingreso
     @GetMapping("/crear-ingreso")
-    public String createIngreso(Model model) {
-         
+    public String showCreateIngresoForm(Model model) {
+        Ingresos ingresos = new Ingresos();
         List<Usuarios> usuarios = usuariosServicios.findAll();
         List<Medicos> medicos = medicosServicios.findAll();
 
-
+        model.addAttribute("ingreso", ingresos);
         model.addAttribute("usuarios", usuarios);
         model.addAttribute("medicos", medicos);
-        model.addAttribute("ingreso", new Ingresos());
         
         return "views/Ingresos/crear-ingreso";
-    }
-
-    @PostMapping("/ingreso")
-    public String createIngreso(@ModelAttribute Ingresos ingreso) {
-        ingresosServicios.save(ingreso);
-        return "redirect:/ingresos/listado-ingresos";
     }
 
     //cargar editar ingreso
@@ -118,19 +110,6 @@ public class IngresosControlador {
         model.addAttribute("usuarios", usuarios);
         model.addAttribute("medicos", medicos);
         return "views/Ingresos/listado-ingresos";
-    }
-
-    @GetMapping("/ingresos/agregar")
-    public String addIngreso(Model model) {
-        Ingresos ingreso = new Ingresos();
-        List<Medicos> medicos = medicosServicios.findAll();
-        List<Usuarios> usuarios = usuariosServicios.findAll();
-
-        model.addAttribute("ingresos", ingreso);
-        model.addAttribute("medicos", medicos);
-        model.addAttribute("usuarios", usuarios);
-
-        return "views/Ingresos/agregar";
     }
 
     @PutMapping("/{id}")
