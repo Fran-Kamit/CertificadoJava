@@ -22,8 +22,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
-import java.util.NoSuchElementException;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @Controller
@@ -38,16 +38,18 @@ public class IngresosControlador {
     private MedicosServicios medicosServicios;
 
     @PostMapping("/crear")
-    public String crearIngreso(@ModelAttribute Ingresos ingreso, Model model){
+    public String crearIngreso(@ModelAttribute Ingresos ingreso, @ModelAttribute Usuarios usuarios, @ModelAttribute Medicos medicos, Model model){
         // Asigna y establece la hora de creación
         LocalDateTime currentDateTime = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
         ingreso.setIngresoCreado(currentDateTime);
+
+        ingreso.setUsuarios(usuarios);
+        ingreso.setMedicos(medicos);
 
         ingresosServicios.save(ingreso);
 
         return "redirect:/ingresos/listado-ingresos";
     }
-    
 
     //añadir ingreso
     @GetMapping("/crear-ingreso")
@@ -63,36 +65,27 @@ public class IngresosControlador {
         return "views/Ingresos/crear-ingreso";
     }
 
-    //cargar editar ingreso
-    @GetMapping("/editar/{id}")
-    public String showEditIngresoForm(@PathVariable("id") Long id, Model model) {
-        try {
-            Ingresos ingreso = ingresosServicios.findById(id);
-            List<Medicos> medicos = medicosServicios.findAll();
-            List<Usuarios> usuarios = usuariosServicios.findAll();
+    //Obtener médico para editar en html
+    @GetMapping("/detalle/{id}")
+    public String verIngresoDetalle(@PathVariable Long id, Model model, HttpSession session) {
+        Ingresos ingreso = ingresosServicios.findById(id);
 
-            model.addAttribute("ingreso", ingreso);
-            model.addAttribute("medico", medicos);
-            model.addAttribute("usuarios", usuarios);
-
-            return "views/Ingresos/editar-ingreso";
-        } catch (NoSuchElementException e) {
-            return "error"; // Mostrar una página de error personalizada si la reparación no se encuentra
-        }
+        model.addAttribute("ingreso", ingreso);
+        session.setAttribute("creado_dia", ingreso.getIngresoCreado());
+        return "/views/Ingresos/detalle-ingreso";
     }
 
-    //editar ingreso
-    @PostMapping("/actualizar-post")
-    public String updateIngreso(@Valid @ModelAttribute("ingreso") Ingresos ingresos, BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            // Manejar errores de validación aquí
-            return "views/Ingresos/editar-ingreso";
-        }
-
-        ingresosServicios.save(ingresos);
-
-        return "redirect:/ingresos/listado-ingresos"; // Redirige al usuario a la lista de reparaciones después de guardar los cambios
-    }
+    /* Se actualiza poniendo la hora de forma automática*/
+    // Actualizar un médico (POST)
+    @PostMapping("/actualizar/{id}")
+    public String actualizarMedico(@ModelAttribute("ingreso") Ingresos ingreso, BindingResult result, Model model, HttpSession session) {
+        LocalDateTime currentDateTime = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
+        ingreso.setIngresoModificado(currentDateTime);
+        LocalDateTime medicCreado = (LocalDateTime) session.getAttribute("creado_dia");
+        ingreso.setIngresoCreado(medicCreado);
+        ingresosServicios.save(ingreso);
+        return "redirect:/medicos/listado-medicos";
+    } 
 
     @GetMapping
     public String muestraIngresos(Model model) {

@@ -99,7 +99,7 @@ public class MedicosControlador {
     /* Se actualiza poniendo la hora de forma automática*/
     // Actualizar un médico (POST)
     @PostMapping("/actualizar/{id}")
-    public String actualizarMedico(@ModelAttribute("medico") Medicos medico, @RequestParam("usuarCodigoIdentificacion") String usuarCodigoIdentificacion,@PathVariable String id, BindingResult result, HttpSession session) {
+    public String actualizarMedico(@ModelAttribute("medico") Medicos medico, @RequestParam("usuarCodigoIdentificacion") String usuarCodigoIdentificacion, @PathVariable String id, BindingResult result, HttpSession session) {
         if (result.hasErrors()) {
             // Manejar errores de validación aquí
             return "views/Medicos/detalle-medico";
