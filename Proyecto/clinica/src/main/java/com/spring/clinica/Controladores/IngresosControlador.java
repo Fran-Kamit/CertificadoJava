@@ -111,8 +111,9 @@ public class IngresosControlador {
         return new ResponseEntity<>(actualizarIngresos, HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete/{id}")
-    public String eliminarIngreso(@PathVariable Long id) {
+    // Eliminar un médico por ID (DELETE)
+    @PostMapping("/eliminar/{id}")
+    public String eliminarMedico(@PathVariable Long id){
         ingresosServicios.deleteById(id);
         return "redirect:/ingresos/listado-ingresos";
     }
