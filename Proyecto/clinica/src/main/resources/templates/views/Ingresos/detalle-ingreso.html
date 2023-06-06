@@ -10,7 +10,7 @@
         <div class="text-right mr-4">
                 <form th:action="@{/ingresos/eliminar/{id}(id=${ingreso.idNumeroIngreso})}" method="post">
                     <input type="hidden" name="_method" value="delete" />
-                    <button type="submit" class="btn btn-danger" onclick="location.href='/ingresos/listado-ingresos'">Eliminar médico</button>
+                    <button type="submit" class="btn btn-danger" onclick="location.href='/ingresos/listado-ingresos'">Eliminar ingreso</button>
                 </form> 
         </div>
         <!--Formulario para editar ingreso-->
