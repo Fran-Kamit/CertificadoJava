@@ -7,6 +7,8 @@ import com.spring.clinica.Servicios.UsuariosServicios;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.owasp.html.PolicyFactory;
+import org.owasp.html.Sanitizers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,6 +29,9 @@ public class MedicosControlador {
     private UsuariosServicios usuariosServicios;
     @Autowired
     private MedicosServicios medicosServicios;
+
+    // Instancia a Sanitizador de HTML import org.owasp.html.PolicyFactory; import org.owasp.html.Sanitizers;
+    private static final PolicyFactory POLICY_FACTORY = Sanitizers.FORMATTING.and(Sanitizers.LINKS);
     
     /*Crear médico con fecha automática*/
     @PostMapping("/crear")
@@ -47,6 +52,10 @@ public class MedicosControlador {
         // Asigna y establece la hora de creación
         LocalDateTime currentDateTime = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
         medico.setMedicCreado(currentDateTime);
+
+        //Sanitizar inputs
+        String sanitizarEspecialidad = POLICY_FACTORY.sanitize(medico.getMedicEspecialidad()); medico.setMedicEspecialidad(sanitizarEspecialidad);
+        String sanitizarCargo = POLICY_FACTORY.sanitize(medico.getMedicCargo()); medico.setMedicCargo(sanitizarCargo);
 
         // Guarda el médico en la base de datos
         medicosServicios.save(medico);
@@ -109,6 +118,11 @@ public class MedicosControlador {
         medico.setCodigoIdentificacion(id);
         LocalDateTime medicCreado = (LocalDateTime) session.getAttribute("medic_creado_dia");
         medico.setMedicCreado(medicCreado);
+
+        //Sanitizar inputs
+        String sanitizarEspecialidad = POLICY_FACTORY.sanitize(medico.getMedicEspecialidad()); medico.setMedicEspecialidad(sanitizarEspecialidad);
+        String sanitizarCargo = POLICY_FACTORY.sanitize(medico.getMedicCargo()); medico.setMedicCargo(sanitizarCargo);
+        
         medicosServicios.save(medico);
         return "redirect:/medicos/listado-medicos";
     } 

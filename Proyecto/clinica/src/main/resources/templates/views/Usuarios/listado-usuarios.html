@@ -26,6 +26,7 @@
               <th>Teléfono</th>
               <th>Domicilio</th>
               <th>Población</th>
+              <th class="d-none d-md-table-cell">Provincia</th>
               <th class="d-none d-md-table-cell">País</th>
               <th class="d-none d-md-table-cell">Código postal</th>
               <th>Consiente Datos</th>
@@ -47,6 +48,7 @@
               <td th:text="${usuarios.usuarTelefono}"></td>
               <td th:text="${usuarios.usuarDomicilio}"></td>
               <td th:text="${usuarios.usuarPoblacion}"></td>
+              <td class="d-none d-md-table-cell" th:text="${usuarios.usuarProvincia}"></td>
               <td class="d-none d-md-table-cell" th:text="${usuarios.usuarPais}"></td>
               <td class="d-none d-md-table-cell" th:text="${usuarios.usuarCodigoPostal}"></td>
               <td th:text="${usuarios.usuarConsentimientoDatos}"></td>

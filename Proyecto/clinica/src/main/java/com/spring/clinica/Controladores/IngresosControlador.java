@@ -1,5 +1,7 @@
 package com.spring.clinica.Controladores;
 
+import org.owasp.html.PolicyFactory;
+import org.owasp.html.Sanitizers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,6 +39,9 @@ public class IngresosControlador {
     @Autowired
     private MedicosServicios medicosServicios;
 
+    // Instancia a Sanitizador de HTML import org.owasp.html.PolicyFactory; import org.owasp.html.Sanitizers;
+    private static final PolicyFactory POLICY_FACTORY = Sanitizers.FORMATTING.and(Sanitizers.LINKS);
+
     @PostMapping("/crear")
     public String crearIngreso(@ModelAttribute Ingresos ingreso, @ModelAttribute Usuarios usuarios, @ModelAttribute Medicos medicos, Model model){
         // Asigna y establece la hora de creación
@@ -45,6 +50,11 @@ public class IngresosControlador {
 
         ingreso.setUsuarios(usuarios);
         ingreso.setMedicos(medicos);
+
+        //Sanitizar inputs
+        String sanitizarAlergias = POLICY_FACTORY.sanitize(ingreso.getAlergias()); ingreso.setAlergias(sanitizarAlergias);
+        String sanitizarObservaciones = POLICY_FACTORY.sanitize(ingreso.getObservaciones()); ingreso.setObservaciones(sanitizarObservaciones);
+        String sanitizarDiagnostico = POLICY_FACTORY.sanitize(ingreso.getDiagnostico()); ingreso.setDiagnostico(sanitizarDiagnostico);
 
         ingresosServicios.save(ingreso);
 
@@ -91,6 +101,11 @@ public class IngresosControlador {
         Ingresos existingIngreso = ingresosServicios.findById(id);
         ingreso.setMedicos(existingIngreso.getMedicos());
         ingreso.setUsuarios(existingIngreso.getUsuarios());
+
+        //Sanitizar inputs
+        String sanitizarAlergias = POLICY_FACTORY.sanitize(ingreso.getAlergias()); ingreso.setAlergias(sanitizarAlergias);
+        String sanitizarObservaciones = POLICY_FACTORY.sanitize(ingreso.getObservaciones()); ingreso.setObservaciones(sanitizarObservaciones);
+        String sanitizarDiagnostico = POLICY_FACTORY.sanitize(ingreso.getDiagnostico()); ingreso.setDiagnostico(sanitizarDiagnostico);
 
         ingresosServicios.save(ingreso);
         return "redirect:/ingresos/listado-ingresos";

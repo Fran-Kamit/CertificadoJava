@@ -3,6 +3,8 @@ package com.spring.clinica.Controladores;
 import com.spring.clinica.Modelo.Usuarios;
 import com.spring.clinica.Servicios.UsuariosServicios;
 
+import org.owasp.html.PolicyFactory;
+import org.owasp.html.Sanitizers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,12 +29,22 @@ public class UsuariosControlador {
     @Autowired
     private UsuariosServicios usuariosServicios;
 
+    // Instancia a Sanitizador de HTML import org.owasp.html.PolicyFactory; import org.owasp.html.Sanitizers;
+    private static final PolicyFactory POLICY_FACTORY = Sanitizers.FORMATTING.and(Sanitizers.LINKS);
+
     /* Se crea poniendo la hora de forma automática*/
     @PostMapping("/crear")
     public String crearUsuario(@ModelAttribute Usuarios usuario) { 
         // Asigna y establece la hora de creación
         LocalDateTime currentDateTime = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
         usuario.setUsuarCreado(currentDateTime);
+        
+        //Sanitizar inputs
+        String sanitizarDomicilio = POLICY_FACTORY.sanitize(usuario.getUsuarDomicilio()); usuario.setUsuarDomicilio(sanitizarDomicilio);
+        String sanitizarPoblacion = POLICY_FACTORY.sanitize(usuario.getUsuarPoblacion()); usuario.setUsuarPoblacion(sanitizarPoblacion);
+        String sanitizarProvincia = POLICY_FACTORY.sanitize(usuario.getUsuarProvincia()); usuario.setUsuarProvincia(sanitizarProvincia);
+        String sanitizarPais = POLICY_FACTORY.sanitize(usuario.getUsuarPais()); usuario.setUsuarPais(sanitizarPais);
+        
         usuariosServicios.save(usuario);
         return "redirect:/usuarios/listado-usuarios";
     }
@@ -91,6 +103,13 @@ public class UsuariosControlador {
         usuario.setUsuarCodigoIdentificacion(id);
         LocalDateTime usuarCreado = (LocalDateTime) session.getAttribute("creado_dia");
         usuario.setUsuarCreado(usuarCreado);
+
+        //Sanitizar inputs
+        String sanitizarDomicilio = POLICY_FACTORY.sanitize(usuario.getUsuarDomicilio()); usuario.setUsuarDomicilio(sanitizarDomicilio);
+        String sanitizarPoblacion = POLICY_FACTORY.sanitize(usuario.getUsuarPoblacion()); usuario.setUsuarPoblacion(sanitizarPoblacion);
+        String sanitizarProvincia = POLICY_FACTORY.sanitize(usuario.getUsuarProvincia()); usuario.setUsuarProvincia(sanitizarProvincia);
+        String sanitizarPais = POLICY_FACTORY.sanitize(usuario.getUsuarPais()); usuario.setUsuarPais(sanitizarPais);
+
         usuariosServicios.save(usuario);
         return "redirect:/usuarios/listado-usuarios";
     }  
