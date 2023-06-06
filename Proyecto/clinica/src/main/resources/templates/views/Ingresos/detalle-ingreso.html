@@ -6,22 +6,22 @@
         <div th:replace="fragments/navbar :: navbar"></div>
         <div class="container"><h1>Editar ingreso</h1></div>
 
-        <!--Formulario para eliminar médico-->
+        <!--Formulario para eliminar ingreso-->
         <div class="text-right mr-4">
                 <form th:action="@{/ingresos/eliminar/{id}(id=${ingreso.idNumeroIngreso})}" method="post">
                     <input type="hidden" name="_method" value="delete" />
                     <button type="submit" class="btn btn-danger" onclick="location.href='/ingresos/listado-ingresos'">Eliminar médico</button>
                 </form> 
         </div>
-        <!--Formulario para editar médico-->
+        <!--Formulario para editar ingreso-->
         <form th:action="@{/ingresos/actualizar/{id}(id=${ingreso.idNumeroIngreso})}" th:object="${ingreso}" method="post">
             <div class="row ml-2 mr-2">
                 <!--ID (oculto)-->
                 <input type="hidden" th:value="${ingreso.idNumeroIngreso}" name="idNumeroIngreso" readonly/>
-                <!--DNI (oculto)-->
-                <input type="text" th:value="${ingreso.usuarDni}" name="usuarDni" readonly/>
-                <!--Num Colegiado (oculto)-->
-                <input type="number" th:value="${ingreso.medicNumeroColegiado}" name="medicNumeroColegiado" readonly/>
+                <!--DNI paciente (oculto)-->
+                <input type="hidden" th:value="${ingreso.usuarios.usuarDni}" name="usuarCodigoIdentificacion" readonly/>
+                <!--Num Colegiado médico (oculto)-->
+                <input type="hidden" th:value="${ingreso.medicos.medicNumeroColegiado}" name="codigoIdentificacion" readonly/>
                 <!--Fecha ingreso-->
                 <div class="col-md-6 col-lg-4 mb-3">
                     <label for="fechaIngreso">Fecha ingreso:</label>

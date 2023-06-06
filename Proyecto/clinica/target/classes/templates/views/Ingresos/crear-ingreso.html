@@ -8,7 +8,7 @@
     
         <form th:action="@{/ingresos/crear}" th:object="${ingreso}" method="post">
             <div class="row ml-2 mr-2">
-                <!--Paciente-->
+                <!--DNI paciente-->
                 <div class="col-md-6 col-lg-4 mb-3">
                     <label for="usuarCodigoIdentificacion">Paciente:*</label>
                     <select class="form-control" id="usuarCodigoIdentificacion" name="usuarCodigoIdentificacion">
@@ -16,7 +16,7 @@
                         th:data-dni="${usuario.usuarDni}"></option>
                     </select>
                 </div>
-                <!--Médico-->
+                <!--Num Colegiado médico-->
                 <div class="col-md-6 col-lg-4 mb-3">
                     <label for="codigoIdentificacion">Médico:*</label>
                     <select class="form-control" id="codigoIdentificacion" name="codigoIdentificacion">

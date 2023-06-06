@@ -61,7 +61,7 @@ public class IngresosControlador {
         model.addAttribute("ingreso", ingresos);
         model.addAttribute("usuarios", usuarios);
         model.addAttribute("medicos", medicos);
-        
+
         return "views/Ingresos/crear-ingreso";
     }
 
@@ -69,7 +69,11 @@ public class IngresosControlador {
     @GetMapping("/detalle/{id}")
     public String verIngresoDetalle(@PathVariable Long id, Model model, HttpSession session) {
         Ingresos ingreso = ingresosServicios.findById(id);
+        List<Usuarios> usuarios = usuariosServicios.findAll();
+        List<Medicos> medicos = medicosServicios.findAll();
 
+        model.addAttribute("usuarios", usuarios);
+        model.addAttribute("medicos", medicos);
         model.addAttribute("ingreso", ingreso);
         session.setAttribute("creado_dia", ingreso.getIngresoCreado());
         return "/views/Ingresos/detalle-ingreso";
@@ -78,14 +82,19 @@ public class IngresosControlador {
     /* Se actualiza poniendo la hora de forma automática*/
     // Actualizar un médico (POST)
     @PostMapping("/actualizar/{id}")
-    public String actualizarMedico(@ModelAttribute("ingreso") Ingresos ingreso, BindingResult result, Model model, HttpSession session) {
+    public String actualizarMedico(@PathVariable("id") Long id, @ModelAttribute("ingreso") Ingresos ingreso, BindingResult result, Model model, HttpSession session) {
         LocalDateTime currentDateTime = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
         ingreso.setIngresoModificado(currentDateTime);
-        LocalDateTime medicCreado = (LocalDateTime) session.getAttribute("creado_dia");
-        ingreso.setIngresoCreado(medicCreado);
+        LocalDateTime ingresoCreado = (LocalDateTime) session.getAttribute("creado_dia");
+        ingreso.setIngresoCreado(ingresoCreado);
+
+        Ingresos existingIngreso = ingresosServicios.findById(id);
+        ingreso.setMedicos(existingIngreso.getMedicos());
+        ingreso.setUsuarios(existingIngreso.getUsuarios());
+
         ingresosServicios.save(ingreso);
-        return "redirect:/medicos/listado-medicos";
-    } 
+        return "redirect:/ingresos/listado-ingresos";
+    }
 
     @GetMapping
     public String muestraIngresos(Model model) {
