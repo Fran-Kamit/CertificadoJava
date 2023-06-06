@@ -52,7 +52,7 @@
 
 
             // Controlador de eventos para medicNumeroColegiado
-            document.getElementById('medicNumeroColegiado').addEventListener('input', enableSaveButton);
+            document.getElementById('medicNumeroColegiado').addEventListener('input', BotonGuardarActivo);
 
             // Validar que solo se ingresen números
             function validarNumero(input) {
@@ -62,18 +62,19 @@
                     input.value = input.value.slice(0, -1);
                 }
 
-                enableSaveButton();
+                BotonGuardarActivo();
             }
 
             //Habilitar el botón de guardar
-            function enableSaveButton() {
+            function BotonGuardarActivo() {
                 const medicNumeroColegiado = document.getElementById("medicNumeroColegiado");
-                const saveButton = document.getElementById("botonGuardar");
+                const usuarCodigoIdentificacion = document.getElementById("usuarCodigoIdentificacion");
+                const botonGuardar = document.getElementById("botonGuardar");
 
-                if (medicNumeroColegiado.value.length === 9) {
-                    saveButton.disabled = false;
+                if (medicNumeroColegiado.value.length === 9 && usuarCodigoIdentificacion.value != "")  {
+                    botonGuardar.disabled = false;
                 } else {
-                saveButton.disabled = true;
+                botonGuardar.disabled = true;
                 }
             }
         </script>

@@ -51,8 +51,8 @@
                 </div>
                 <!--Alergias-->
                 <div class="col-md-6 col-lg-4 mb-3">
-                    <label for="alergias">Alergias:</label>
-                    <input type="text" class="form-control" th:field="*{alergias}" id="alergias" name="alergias" />
+                    <label for="alergias">Alergias:*</label>
+                    <input type="text" class="form-control" th:field="*{alergias}" id="alergias" name="alergias" requiered/>
                 </div>
                 <!--Observaciones-->
                 <div class="col-md-6 col-lg-4 mb-3">
@@ -71,9 +71,27 @@
                 </div>
             </div>
             <div class="text-center"><br/>
-                <button type="submit" class="btn btn-primary" id="botonGuardar">Añadir</button>
+                <button type="submit" class="btn btn-primary" id="botonGuardar" disabled>Añadir</button>
                 <button type="button" class="btn btn-secondary" onclick="location.href='/usuarios/listado-usuarios'">Cancelar</button>
             </div>
         </form>
+        <script>
+            //Controlador eventos
+            document.getElementById('codigoIdentificacion').addEventListener('change', BotonGuardarActivo);
+            document.getElementById('alergias').addEventListener('input', BotonGuardarActivo);
+
+            //Habilitar el botón de guardar
+            function BotonGuardarActivo() {
+                const codigoIdentificacion = document.getElementById("codigoIdentificacion");
+                const alergias = document.getElementById("alergias");
+                const saveButton = document.getElementById("botonGuardar");
+
+                if (codigoIdentificacion.value != "" && alergias.value != "")  {
+                    saveButton.disabled = false;
+                } else {
+                    saveButton.disabled = true;
+                }
+            }
+        </script>
     </body>
 </html>
